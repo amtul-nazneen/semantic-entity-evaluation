@@ -13,13 +13,14 @@ def main():
     trainedMLModelRelation = train_MLClassifier_Relation(sentenceToRelationArray)
     trainedMLModelDirection = train_MLClassifier_Relation(sentenceToDirectionArray)
     """
+        run in a loop - where we take user input
         trainedMLModelRelation, trainedMLModelDirection can be used to predict
         """
 
 
 # TASK - One-time method
 #TODO: move to utils file
-def preProcessingSentenceLength():
+def preProcessingSentenceLength(): #TODO- AMTUL
     """
     1. Read the file, get the max length of the sentence - store in MAX_SENTENCE_LENGTH
     2. Count the unique relations
@@ -27,15 +28,15 @@ def preProcessingSentenceLength():
 
 # TASK0 - Extract Unique Relations and store their mappings
 # Return: Map Ex: ["Entity-Destination":1..."Cause-Effect":6...]
-def preProcessingRelationMap():
+def preProcessingRelationMap(): #TODO- AMTUL
     """
         1. Extract the unique relations from the file, store them in a map
         """
 
 #TASK1 - Read Input File
 #Return : processedParaList - List of arrays Ex: ["Jack has a car", Jack, Car, 6,0]
-def corpusReader():
-    relationMap = preProcessingRelationMap()
+def corpusReader(): #TODO- HEMA
+    relationMap = preProcessingRelationMap() #TODO-AMTUL
     """
     1. Begin read of the file
     3. Initialize a list [processedParaList] to hold arrays [each array has 5 entries]
@@ -51,7 +52,7 @@ def corpusReader():
 #TASK2 - Extract Features
 #Input: processedParaList from corpusReader() Ex: ["Jack has a car", Jack, Car, 6,0]
 #Output: sentenceToRelationArray, sentenceToDirectionArray
-def deepNLPPipeline():
+def deepNLPPipeline(): #TODO - HEMA Old Code (Except WordNet - AMTUL) (Except Parsing - Later)
     """
         Initialize two arrays of dicts
             sentenceToRelationArray
@@ -59,7 +60,7 @@ def deepNLPPipeline():
         For each entry in 'processedParaList'
             get entry0 in sentence
             get entry1 in entity1
-            get entry1 in entity2
+            get entry2 in entity2
             tokenArray = extractTokens(sentence)
             lemmaArray = extractLemma_Features(tokenArray)
             POSArray = extractPOS_Features(tokenArray)
@@ -170,7 +171,7 @@ def extractParsing_Features(tokenArray):
 #Input - sentenceToRelationArray from deepNLPPipeline
 #Output - trainedMLModelRelation - the trained model
 def train_MLClassifier_Relation(sentenceToRelationArray):
-"""
+    """
     inputFeatures, outputResults = train_MLClassifier_Helper(sentenceToRelationArray)
     run the classification using i/p and o/p
     """
@@ -179,7 +180,7 @@ def train_MLClassifier_Relation(sentenceToRelationArray):
 #Input - sentenceToDirectionArray from deepNLPPipeline
 #Output - trainedMLModelDirection - the trained model
 def train_MLClassifier_Direction(sentenceToDirectionArray):
-"""
+    """
     inputFeatures, outputResults = train_MLClassifier_Helper(sentenceToDirectionArray)
     run the classification using i/p and o/p
     """
@@ -188,11 +189,10 @@ def train_MLClassifier_Direction(sentenceToDirectionArray):
 #Input: sentenceToRelationArray or sentenceToDirectionArray
 #Output: inputFeatures, outputResults - separate arrays
 def train_MLClassifier_Helper(sentenceToArray):
-"""
+    """
     convert dict to two separate arrays as input and output
     """
 
-def predict
 
 if __name__ == '__main__':
     main()
