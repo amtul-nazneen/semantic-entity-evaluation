@@ -93,13 +93,9 @@ def extractWordNet_Features(tokenArray):
     # printConsole("meronyms: ", meronyms)
     allWordNetFeaturesDict =\
         wordnetHelper.extractWordNet_Features_Helper(len(tokenArray),hypernyms,hyponyms,holonyms,meronyms)
-    # printConsole("All WordNet Features for given tokens: ")
-    # printConsole(allWordNetFeaturesDict)
     return allWordNetFeaturesDict
 
-#TASK2 - helper method (9)
-#Input:
-#Output:
+
 def extractParsing_Features(tokenArray):
     """
         #TODO: how-to's

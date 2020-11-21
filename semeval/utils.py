@@ -8,6 +8,7 @@ HYPO_TAG = 'hypo'
 HOLO_TAG = 'holo'
 MERO_TAG = 'mero'
 
+
 def trim(input):
     if (input):
         inputAfterTrim = input.rstrip()
