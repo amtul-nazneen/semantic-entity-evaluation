@@ -1,25 +1,46 @@
-#TASK4 - ML Model to classify relation
-#Input - sentenceToRelationArray from deepNLPPipeline
-#Output - trainedMLModelRelation - the trained model
-def train_MLClassifier_Relation(sentenceToRelationArray):
-    """
-    inputFeatures, outputResults = train_MLClassifier_Helper(sentenceToRelationArray)
-    run the classification using i/p and o/p
-    """
 
-#TASK4 - ML Model to classify relation
-#Input - sentenceToDirectionArray from deepNLPPipeline
-#Output - trainedMLModelDirection - the trained model
-def train_MLClassifier_Direction(sentenceToDirectionArray):
-    """
-    inputFeatures, outputResults = train_MLClassifier_Helper(sentenceToDirectionArray)
-    run the classification using i/p and o/p
-    """
+import pandas as pd
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
-#TASK4: Helper method (1)
-#Input: sentenceToRelationArray or sentenceToDirectionArray
-#Output: inputFeatures, outputResults - separate arrays
-def train_MLClassifier_Helper(sentenceToArray):
-    """
-    convert dict to two separate arrays as input and output
-    """
+from semeval.utils import printConsole
+
+def train_MLClassifier_Relation(allSentenceFeatures,allSentenceRelations):
+    dv = DictVectorizer(sparse=True)
+    X = dv.fit_transform(allSentenceFeatures)
+    Y = pd.np.array(allSentenceRelations)
+    mnb = MultinomialNB()
+    mnb.fit(X, Y)
+    MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
+    printConsole("Trained Relation Model")
+    #printConsole(mnb)
+    printConsole("Beginning Prediction")
+    data = [{'lemma1': '1090', 'lemma2': 'she', 'lemma3': 'diamond', 'lemma4': 'be', 'lemma5': 'lock', 'lemma6': 'in', 'lemma7': 'a', 'lemma8': 'box', 'lemma9': '$', 'lemma10': '$', 'lemma11': '$', 'lemma12': '$', 'lemma13': '$', 'lemma14': '$', 'lemma15': '$', 'lemma16': '$', 'pos1': 'CD', 'pos2': 'PRP$', 'pos3': 'NNS', 'pos4': 'VBP', 'pos5': 'VBN', 'pos6': 'IN', 'pos7': 'DT', 'pos8': 'NN', 'pos9': '$', 'pos10': '$', 'pos11': '$', 'pos12': '$', 'pos13': '$', 'pos14': '$', 'pos15': '$', 'pos16': '$', 'entity1': 'OTHER', 'entity2': 'OTHER', 'hyper1': 'jewel', 'hyper2': 'gem', 'hyper3': 'area_unit', 'hyper4': 'square_measure', 'hyper5': 'fasten', 'hyper6': 'fix', 'hyper7': 'linear_unit', 'hyper8': 'linear_measure', 'hyper9': 'metric_linear_unit', 'hyper10': 'fat-soluble_vitamin', 'hyper11': 'container', 'hyper12': 'compartment', 'hyper13': '$$$', 'hyper14': '$$$', 'hyper15': '$$$', 'hyper16': '$$$', 'hyper17': '$$$', 'hyper18': '$$$', 'hyper19': '$$$', 'hyper20': '$$$', 'hyper21': '$$$', 'hyper22': '$$$', 'hyper23': '$$$', 'hyper24': '$$$', 'hyper25': '$$$', 'hyper26': '$$$', 'hyper27': '$$$', 'hyper28': '$$$', 'hyper29': '$$$', 'hyper30': '$$$', 'hyper31': '$$$', 'hyper32': '$$$', 'hyper33': '$$$', 'hyper34': '$$$', 'hyper35': '$$$', 'hyper36': '$$$', 'hyper37': '$$$', 'hyper38': '$$$', 'hyper39': '$$$', 'hyper40': '$$$', 'hyper41': '$$$', 'hyper42': '$$$', 'hyper43': '$$$', 'hyper44': '$$$', 'hyper45': '$$$', 'hyper46': '$$$', 'hyper47': '$$$', 'hyper48': '$$$', 'hypo1': 'ice', 'hypo2': 'sparkler', 'hypo3': 'abound', 'hypo4': 'accept', 'hypo5': 'bolt', 'hypo6': 'padlock', 'hypo7': 'vitamin_A1', 'hypo8': 'retinol', 'hypo9': 'ballot_box', 'hypo10': 'bandbox', 'hypo11': '$$$', 'hypo12': '$$$', 'hypo13': '$$$', 'hypo14': '$$$', 'hypo15': '$$$', 'hypo16': '$$$', 'hypo17': '$$$', 'hypo18': '$$$', 'hypo19': '$$$', 'hypo20': '$$$', 'hypo21': '$$$', 'hypo22': '$$$', 'hypo23': '$$$', 'hypo24': '$$$', 'hypo25': '$$$', 'hypo26': '$$$', 'hypo27': '$$$', 'hypo28': '$$$', 'hypo29': '$$$', 'hypo30': '$$$', 'hypo31': '$$$', 'hypo32': '$$$', 'hypo33': '$$$', 'hypo34': '$$$', 'hypo35': '$$$', 'hypo36': '$$$', 'hypo37': '$$$', 'hypo38': '$$$', 'hypo39': '$$$', 'hypo40': '$$$', 'hypo41': '$$$', 'hypo42': '$$$', 'hypo43': '$$$', 'hypo44': '$$$', 'hypo45': '$$$', 'hypo46': '$$$', 'hypo47': '$$$', 'hypo48': '$$$', 'holo1': 'ball_field', 'holo2': 'baseball_field', 'holo3': 'hectare', 'holo4': 'foot', 'holo5': 'ft', 'holo6': 'nanometer', 'holo7': 'nanometre', 'holo8': 'balcony', 'holo9': 'ball_field', 'holo10': '$$$', 'holo11': '$$$', 'holo12': '$$$', 'holo13': '$$$', 'holo14': '$$$', 'holo15': '$$$', 'holo16': '$$$', 'holo17': '$$$', 'holo18': '$$$', 'holo19': '$$$', 'holo20': '$$$', 'holo21': '$$$', 'holo22': '$$$', 'holo23': '$$$', 'holo24': '$$$', 'holo25': '$$$', 'holo26': '$$$', 'holo27': '$$$', 'holo28': '$$$', 'holo29': '$$$', 'holo30': '$$$', 'holo31': '$$$', 'holo32': '$$$', 'holo33': '$$$', 'holo34': '$$$', 'holo35': '$$$', 'holo36': '$$$', 'holo37': '$$$', 'holo38': '$$$', 'holo39': '$$$', 'holo40': '$$$', 'holo41': '$$$', 'holo42': '$$$', 'holo43': '$$$', 'holo44': '$$$', 'holo45': '$$$', 'holo46': '$$$', 'holo47': '$$$', 'holo48': '$$$', 'mero1': 'base', 'mero2': 'bag', 'mero3': 'em', 'mero4': 'pica_em', 'mero5': 'picometer', 'mero6': 'picometre', 'mero7': 'base', 'mero8': 'lid', 'mero9': '$$$', 'mero10': '$$$', 'mero11': '$$$', 'mero12': '$$$', 'mero13': '$$$', 'mero14': '$$$', 'mero15': '$$$', 'mero16': '$$$', 'mero17': '$$$', 'mero18': '$$$', 'mero19': '$$$', 'mero20': '$$$', 'mero21': '$$$', 'mero22': '$$$', 'mero23': '$$$', 'mero24': '$$$', 'mero25': '$$$', 'mero26': '$$$', 'mero27': '$$$', 'mero28': '$$$', 'mero29': '$$$', 'mero30': '$$$', 'mero31': '$$$', 'mero32': '$$$', 'mero33': '$$$', 'mero34': '$$$', 'mero35': '$$$', 'mero36': '$$$', 'mero37': '$$$', 'mero38': '$$$', 'mero39': '$$$', 'mero40': '$$$', 'mero41': '$$$', 'mero42': '$$$', 'mero43': '$$$', 'mero44': '$$$', 'mero45': '$$$', 'mero46': '$$$', 'mero47': '$$$', 'mero48': '$$$'}]
+    output = mnb.predict(dv.transform(data))
+    print("Predicted Relation:")
+    printConsole(output)
+    return mnb
+
+def train_MLClassifier_Direction(allSentenceFeatures,allSentenceDirections):
+    dv = DictVectorizer(sparse=True)
+    X = dv.fit_transform(allSentenceFeatures)
+    Y = pd.np.array(allSentenceDirections)
+    mnb = MultinomialNB()
+    mnb.fit(X, Y)
+    MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True)
+    printConsole("Trained Direction Model")
+    #printConsole(mnb)
+    printConsole("Beginning Prediction")
+    data = [{'lemma1': '1090', 'lemma2': 'she', 'lemma3': 'diamond', 'lemma4': 'be', 'lemma5': 'lock', 'lemma6': 'in', 'lemma7': 'a', 'lemma8': 'box', 'lemma9': '$', 'lemma10': '$', 'lemma11': '$', 'lemma12': '$', 'lemma13': '$', 'lemma14': '$', 'lemma15': '$', 'lemma16': '$', 'pos1': 'CD', 'pos2': 'PRP$', 'pos3': 'NNS', 'pos4': 'VBP', 'pos5': 'VBN', 'pos6': 'IN', 'pos7': 'DT', 'pos8': 'NN', 'pos9': '$', 'pos10': '$', 'pos11': '$', 'pos12': '$', 'pos13': '$', 'pos14': '$', 'pos15': '$', 'pos16': '$', 'entity1': 'OTHER', 'entity2': 'OTHER', 'hyper1': 'jewel', 'hyper2': 'gem', 'hyper3': 'area_unit', 'hyper4': 'square_measure', 'hyper5': 'fasten', 'hyper6': 'fix', 'hyper7': 'linear_unit', 'hyper8': 'linear_measure', 'hyper9': 'metric_linear_unit', 'hyper10': 'fat-soluble_vitamin', 'hyper11': 'container', 'hyper12': 'compartment', 'hyper13': '$$$', 'hyper14': '$$$', 'hyper15': '$$$', 'hyper16': '$$$', 'hyper17': '$$$', 'hyper18': '$$$', 'hyper19': '$$$', 'hyper20': '$$$', 'hyper21': '$$$', 'hyper22': '$$$', 'hyper23': '$$$', 'hyper24': '$$$', 'hyper25': '$$$', 'hyper26': '$$$', 'hyper27': '$$$', 'hyper28': '$$$', 'hyper29': '$$$', 'hyper30': '$$$', 'hyper31': '$$$', 'hyper32': '$$$', 'hyper33': '$$$', 'hyper34': '$$$', 'hyper35': '$$$', 'hyper36': '$$$', 'hyper37': '$$$', 'hyper38': '$$$', 'hyper39': '$$$', 'hyper40': '$$$', 'hyper41': '$$$', 'hyper42': '$$$', 'hyper43': '$$$', 'hyper44': '$$$', 'hyper45': '$$$', 'hyper46': '$$$', 'hyper47': '$$$', 'hyper48': '$$$', 'hypo1': 'ice', 'hypo2': 'sparkler', 'hypo3': 'abound', 'hypo4': 'accept', 'hypo5': 'bolt', 'hypo6': 'padlock', 'hypo7': 'vitamin_A1', 'hypo8': 'retinol', 'hypo9': 'ballot_box', 'hypo10': 'bandbox', 'hypo11': '$$$', 'hypo12': '$$$', 'hypo13': '$$$', 'hypo14': '$$$', 'hypo15': '$$$', 'hypo16': '$$$', 'hypo17': '$$$', 'hypo18': '$$$', 'hypo19': '$$$', 'hypo20': '$$$', 'hypo21': '$$$', 'hypo22': '$$$', 'hypo23': '$$$', 'hypo24': '$$$', 'hypo25': '$$$', 'hypo26': '$$$', 'hypo27': '$$$', 'hypo28': '$$$', 'hypo29': '$$$', 'hypo30': '$$$', 'hypo31': '$$$', 'hypo32': '$$$', 'hypo33': '$$$', 'hypo34': '$$$', 'hypo35': '$$$', 'hypo36': '$$$', 'hypo37': '$$$', 'hypo38': '$$$', 'hypo39': '$$$', 'hypo40': '$$$', 'hypo41': '$$$', 'hypo42': '$$$', 'hypo43': '$$$', 'hypo44': '$$$', 'hypo45': '$$$', 'hypo46': '$$$', 'hypo47': '$$$', 'hypo48': '$$$', 'holo1': 'ball_field', 'holo2': 'baseball_field', 'holo3': 'hectare', 'holo4': 'foot', 'holo5': 'ft', 'holo6': 'nanometer', 'holo7': 'nanometre', 'holo8': 'balcony', 'holo9': 'ball_field', 'holo10': '$$$', 'holo11': '$$$', 'holo12': '$$$', 'holo13': '$$$', 'holo14': '$$$', 'holo15': '$$$', 'holo16': '$$$', 'holo17': '$$$', 'holo18': '$$$', 'holo19': '$$$', 'holo20': '$$$', 'holo21': '$$$', 'holo22': '$$$', 'holo23': '$$$', 'holo24': '$$$', 'holo25': '$$$', 'holo26': '$$$', 'holo27': '$$$', 'holo28': '$$$', 'holo29': '$$$', 'holo30': '$$$', 'holo31': '$$$', 'holo32': '$$$', 'holo33': '$$$', 'holo34': '$$$', 'holo35': '$$$', 'holo36': '$$$', 'holo37': '$$$', 'holo38': '$$$', 'holo39': '$$$', 'holo40': '$$$', 'holo41': '$$$', 'holo42': '$$$', 'holo43': '$$$', 'holo44': '$$$', 'holo45': '$$$', 'holo46': '$$$', 'holo47': '$$$', 'holo48': '$$$', 'mero1': 'base', 'mero2': 'bag', 'mero3': 'em', 'mero4': 'pica_em', 'mero5': 'picometer', 'mero6': 'picometre', 'mero7': 'base', 'mero8': 'lid', 'mero9': '$$$', 'mero10': '$$$', 'mero11': '$$$', 'mero12': '$$$', 'mero13': '$$$', 'mero14': '$$$', 'mero15': '$$$', 'mero16': '$$$', 'mero17': '$$$', 'mero18': '$$$', 'mero19': '$$$', 'mero20': '$$$', 'mero21': '$$$', 'mero22': '$$$', 'mero23': '$$$', 'mero24': '$$$', 'mero25': '$$$', 'mero26': '$$$', 'mero27': '$$$', 'mero28': '$$$', 'mero29': '$$$', 'mero30': '$$$', 'mero31': '$$$', 'mero32': '$$$', 'mero33': '$$$', 'mero34': '$$$', 'mero35': '$$$', 'mero36': '$$$', 'mero37': '$$$', 'mero38': '$$$', 'mero39': '$$$', 'mero40': '$$$', 'mero41': '$$$', 'mero42': '$$$', 'mero43': '$$$', 'mero44': '$$$', 'mero45': '$$$', 'mero46': '$$$', 'mero47': '$$$', 'mero48': '$$$'}]
+    output = mnb.predict(dv.transform(data))
+    print("Predicted Direction:")
+    printConsole(output)
+    return mnb
+
+# --> !!Not using below code
+# def dict_vectorizer(allSentenceFeatures):
+#     vectorizer = DictVectorizer(sparse=True)
+#     feature_dict_vector = vectorizer.fit_transform(allSentenceFeatures).toarray()
+#     printConsole("Printing Feature Dict Vector")
+#     printConsole(feature_dict_vector)
+#     return feature_dict_vector

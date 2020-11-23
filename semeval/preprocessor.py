@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 from semeval.utils import *
 
 def getMaxSentenceLengthInTraining():
@@ -27,8 +25,7 @@ def getMaxSentenceLengthInTraining():
         printConsole("Max Length of Sentence Is:"+str(maxLength))
         return maxLength
 
-# TASK0 - Extract Unique Relations and store their mappings
-# Return: Map Ex: ["Entity-Destination":1..."Cause-Effect":6...]
+
 def getPreProcessedRelationMap():
     printConsole("In Function - getPreProcessedRelationMap()")
     relationshipSet = set()
@@ -45,12 +42,12 @@ def getPreProcessedRelationMap():
                 relationshipSet.add(relationship)
         #print(relationshipSet)
         printConsole("Extracted All Relationships In Set")
-        relationshipToIndexMap = defaultdict(list)
-        indexToRelationshipMap = defaultdict(list)
+        relationshipToIndexMap = {}
+        indexToRelationshipMap = {}
         relationMapValueCounter = 1
         for relation in relationshipSet:
-            relationshipToIndexMap[relation].append(relationMapValueCounter)
-            indexToRelationshipMap[relationMapValueCounter].append(relation)
+            relationshipToIndexMap[relation]= relationMapValueCounter
+            indexToRelationshipMap[relationMapValueCounter] =relation
             relationMapValueCounter = relationMapValueCounter + 1
         #print(relationshipToIndexMap)
         #print(indexToRelationshipMap)

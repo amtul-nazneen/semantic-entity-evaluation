@@ -7,7 +7,7 @@ Other
 
 
 3	"The <e1>author</e1> of a keygen uses a <e2>disassembler</e2> to look at the raw assembly code."
-Instrument-Agency(e2,e1)
+Instrument-Agency(e2,e1)Agencies cannot use their parts as Intruments
 
 
 4	"A misty <e1>ridge</e1> uprises from the <e2>surge</e2>."
@@ -3068,7 +3068,7 @@ Entity-Destination(e1,e2)
 
 768	"Case <e1>studies</e1>, some of them book long, have made a notable contribution to scientific <e2>medicine</e2>."
 Other
-their Topic
+
 
 769	"Below is a list of the <e1>books</e1> of the <e2>bible</e2>."
 Component-Whole(e1,e2)
@@ -3588,7 +3588,7 @@ Cause-Effect(e1,e2)
 
 898	"The signoff <e1>queue</e1> is used for <e2>reports</e2> that the user has not seen before."
 Other
-negation is outside
+
 
 899	"We put the <e1>files</e1> into a date-based <e2>directory</e2> like YY/MM/DD."
 Entity-Destination(e1,e2)
@@ -3924,7 +3924,7 @@ Cause-Effect(e1,e2)
 
 982	"The trapped <e1>mass</e1> takes part in the <e2>movement</e2> and therefore contributes to the inertia of the system."
 Other
-rather is a kind of agency or co-agency.
+
 
 983	"Baird's scanning <e1>disk</e1> produced an <e2>image</e2> of 30 lines resolution, just enough to discern a human face, from a double spiral of lenses."
 Product-Producer(e2,e1)
@@ -12024,7 +12024,7 @@ Other
 
 3007	"Like Shibnath, our <e1>protagonist</e1> too takes part in the freedom <e2>movement</e2> of India, faces the pangs of foreign rule, and is inspired by Sarojini Naidu and other notable figures like veteran communist leader Ravi Narayan Reddy."
 Other
-rather is a kind of agency or co-agency.
+
 
 3008	"The <e1>process</e1> is assisted by benign <e2>intervention</e2> or neglect."
 Other
@@ -16124,7 +16124,7 @@ Other
 
 4032	"Foreign <e1>minister</e1> participated in a high level UN <e2>conference</e2> on financing for development."
 Other
-rather is a kind of agency or co-agency.
+
 
 4033	"As they watch, the jar breaks open and a dark man with a rolled-up <e1>rug</e1> climbs from inside the <e2>jar</e2>."
 Entity-Origin(e1,e2)
@@ -17188,7 +17188,7 @@ Member-Collection(e2,e1)
 
 4298	"22 traditional dancing <e1>ensembles</e1> participated in the <e2>festival</e2> of Razlog."
 Other
-rather is a kind of agency or co-agency.
+
 
 4299	"This <e1>area</e1> is part of the association <e2>cortex</e2>, regions of the brain responsible for incorporating and synthesizing information from multiple other brain regions."
 Component-Whole(e1,e2)
@@ -18724,7 +18724,7 @@ Entity-Destination(e1,e2)
 
 4682	"U.S. <e1>embassy</e1> participated in <e2>opening</e2> of the unique exhibition about general Pika."
 Other
-rather is a kind of agency or co-agency.
+
 
 4683	"An 11-year-old Greensboro boy turned in a <e1>purse</e1> with <e2>money</e2> inside after he found it in a creek Saturday."
 Content-Container(e2,e1)
@@ -20624,7 +20624,7 @@ Cause-Effect(e1,e2)
 
 5157	"Coast <e1>guard</e1> participates in Veterans Day observance <e2>ceremony</e2> in Juneau."
 Other
-rather is a kind of agency or co-agency.
+
 
 5158	"In the present study, we adapted a <e1>battery</e1> of <e2>tests</e2> used to assess age-related cognitive decline in English speakers for use with older Spanish speakers."
 Member-Collection(e2,e1)

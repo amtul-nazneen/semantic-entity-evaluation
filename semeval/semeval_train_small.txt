@@ -2,5 +2,5 @@
 Component-Whole(e2,e1)
 
 
-3	"The <e1>author</e1> of a keygen uses a <e2>disassembler</e2> to look at the raw assembly code."
-Instrument-Agency(e2,e1)
+1090	"Her <e1>diamonds</e1> are locked in a <e2>box</e2>."
+Content-Container(e1,e2)

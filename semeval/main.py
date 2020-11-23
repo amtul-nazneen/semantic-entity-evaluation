@@ -7,11 +7,12 @@ def main():
     printConsole("Training Begins")
     processedParaList = corpusReader.corpusReader()
     printConsole("Corpus Reader Completed")
-    sentenceToRelationArray, sentenceToDirectionArray = nlpPipeline.deepNLPPipeline(processedParaList)
+    allSentenceFeatures, allSentenceRelations, allSentenceDirections = \
+    nlpPipeline.deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH)
     printConsole("Training Model for Relation")
-    trainedMLModelRelation = mlClassifier.train_MLClassifier_Relation(sentenceToRelationArray)
+    trainedMLModelRelation = mlClassifier.train_MLClassifier_Relation(allSentenceFeatures,allSentenceRelations)
     printConsole("Training Model for Direction")
-    trainedMLModelDirection = mlClassifier.train_MLClassifier_Relation(sentenceToDirectionArray)
+    trainedMLModelDirection = mlClassifier.train_MLClassifier_Direction(allSentenceFeatures,allSentenceDirections)
     printConsole("Learned Model is Ready")
     #TODO- Code for prediction
 

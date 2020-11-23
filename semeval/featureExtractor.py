@@ -1,6 +1,12 @@
 import json
 import string
 from semeval import wordnetHelper
+from semeval.utils import PADDING_CHARACTER, printConsole, NER_OTHER
+import spacy
+import networkx as nx
+
+
+nlp_spacy = spacy.load('en_core_web_sm')
 props = {
     'annotators': 'pos,lemma,depparse,ner',
     'pipelineLanguage': 'en',
@@ -56,7 +62,7 @@ def extractNER_Features(tokenArray, entity1, entity2, nlp):
     res_ner = {}
     # for key in tokenArray:
     # can also use - token_pos=dict(zip(sents_no_punct, pos_list))
-    ner_array = []
+    ner_array = {}
     for key in tokenArray:
         for value in ner_list:
             res_ner[key] = value
@@ -65,8 +71,12 @@ def extractNER_Features(tokenArray, entity1, entity2, nlp):
 
     e1_ner = res_ner[entity1]
     e2_ner = res_ner[entity2]
-    ner_array.append(e1_ner)
-    ner_array.append(e2_ner)
+    if(e1_ner == 'O'):
+        e1_ner =NER_OTHER
+    if (e2_ner == 'O'):
+        e2_ner = NER_OTHER
+    ner_array["entity1"]= e1_ner
+    ner_array["entity2"]= e2_ner
     return ner_array
 
 def extractWordNet_Features(tokenArray):
@@ -95,9 +105,29 @@ def extractWordNet_Features(tokenArray):
         wordnetHelper.extractWordNet_Features_Helper(len(tokenArray),hypernyms,hyponyms,holonyms,meronyms)
     return allWordNetFeaturesDict
 
+def padTokenArray(tokenArray,MAX_SENTENCE_LENGTH):
+    currentLength = len(tokenArray)
+    difference = MAX_SENTENCE_LENGTH-currentLength
+    while(difference>0):
+        tokenArray.append(PADDING_CHARACTER)
+        difference= difference-1
+    printConsole("Updated Token Array:")
+    printConsole(tokenArray)
+    return tokenArray
 
-def extractParsing_Features(tokenArray):
-    """
-        #TODO: how-to's
-        """
+
+def extractParsing_Features(sentence,entity1,entity2):
+    doc = nlp_spacy(sentence)
+    print('sentence:'.format(doc))  # Load spacy's dependency tree into a networkx graph
+    edges = []
+    for token in doc:
+        for child in token.children:
+            edges.append(('{0}'.format(token.lower_),
+                          '{0}'.format(child.lower_)))
+            graph = nx.Graph(edges)  # Get the length and path
+    entity1 = entity1.lower()
+    entity2 = entity2
+    print(nx.shortest_path_length(graph, source=entity1, target=entity2))
+    print(nx.shortest_path(graph, source=entity1, target=entity2))
+    return nx.shortest_path(graph, source=entity1, target=entity2)
 
