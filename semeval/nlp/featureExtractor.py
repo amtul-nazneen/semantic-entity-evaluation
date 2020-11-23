@@ -1,10 +1,9 @@
 import json
 import string
-from semeval import wordnetHelper
-from semeval.utils import PADDING_CHARACTER, printConsole, NER_OTHER
+from semeval.nlp import wordnetHelper
+from semeval.common.utils import PADDING_CHARACTER, NER_OTHER
 import spacy
 import networkx as nx
-
 
 nlp_spacy = spacy.load('en_core_web_sm')
 props = {
@@ -12,6 +11,7 @@ props = {
     'pipelineLanguage': 'en',
     'outputFormat': 'json'
 }
+
 def extractTokens(sentence,nlp):
     sents = nlp.word_tokenize(sentence)
     sents = [s for s in sents if s not in string.punctuation]
@@ -23,7 +23,6 @@ def extractLemma_Features(tokenArray,nlp):
     parsed_str = nlp.annotate(sentence, properties=props)
     parsed_dict = json.loads(parsed_str)
     lemma_list = [v for d in parsed_dict['sentences'][0]['tokens'] for k, v in d.items() if k == 'lemma']
-
     # converting into dictionary
     res_lemma = {}
     # for key in tokenArray:
@@ -32,7 +31,6 @@ def extractLemma_Features(tokenArray,nlp):
             res_lemma["lemma" + str(i)] = value
             lemma_list.remove(value)
             break
-
     return res_lemma
 
 
@@ -41,7 +39,6 @@ def extractPOS_Features(tokenArray,nlp):
     parsed_str = nlp.annotate(sentence, properties=props)
     parsed_dict = json.loads(parsed_str)
     pos_list = [v for d in parsed_dict['sentences'][0]['tokens'] for k, v in d.items() if k == 'pos']
-
     # converting into dictionary
     res_pos = {}
     # for key in tokenArray:
@@ -51,7 +48,6 @@ def extractPOS_Features(tokenArray,nlp):
             res_pos["pos" + str(i)] = value
             pos_list.remove(value)
             break
-
     return res_pos
 
 def extractNER_Features(tokenArray, entity1, entity2, nlp):
@@ -68,7 +64,6 @@ def extractNER_Features(tokenArray, entity1, entity2, nlp):
             res_ner[key] = value
             ner_list.remove(value)
             break
-
     e1_ner = res_ner[entity1]
     e2_ner = res_ner[entity2]
     if(e1_ner == 'O'):
@@ -97,12 +92,8 @@ def extractWordNet_Features(tokenArray):
         holonymsArray = wordnetHelper.extractWordNet_Holonyms(token)
         for holonym in holonymsArray:
             holonyms.append(holonym)
-    # printConsole("hypernyms: ", hypernyms)
-    # printConsole("hyponyms: ", hyponyms)
-    # printConsole("holonyms: ", holonyms)
-    # printConsole("meronyms: ", meronyms)
     allWordNetFeaturesDict =\
-        wordnetHelper.extractWordNet_Features_Helper(len(tokenArray),hypernyms,hyponyms,holonyms,meronyms)
+        wordnetHelper.extractWordNet_Features_Helper(len(tokenArray), hypernyms, hyponyms, holonyms, meronyms)
     return allWordNetFeaturesDict
 
 def padTokenArray(tokenArray,MAX_SENTENCE_LENGTH):
@@ -111,14 +102,12 @@ def padTokenArray(tokenArray,MAX_SENTENCE_LENGTH):
     while(difference>0):
         tokenArray.append(PADDING_CHARACTER)
         difference= difference-1
-    printConsole("Updated Token Array:")
-    printConsole(tokenArray)
     return tokenArray
 
 
 def extractParsing_Features(sentence,entity1,entity2):
     doc = nlp_spacy(sentence)
-    print('sentence:'.format(doc))  # Load spacy's dependency tree into a networkx graph
+    #print('sentence:'.format(doc))  # Load spacy's dependency tree into a networkx graph
     edges = []
     for token in doc:
         for child in token.children:
@@ -127,7 +116,7 @@ def extractParsing_Features(sentence,entity1,entity2):
             graph = nx.Graph(edges)  # Get the length and path
     entity1 = entity1.lower()
     entity2 = entity2
-    print(nx.shortest_path_length(graph, source=entity1, target=entity2))
-    print(nx.shortest_path(graph, source=entity1, target=entity2))
+    #print(nx.shortest_path_length(graph, source=entity1, target=entity2))
+    #print(nx.shortest_path(graph, source=entity1, target=entity2))
     return nx.shortest_path(graph, source=entity1, target=entity2)
 

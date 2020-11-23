@@ -1,48 +1,38 @@
 from nltk.corpus import wordnet as wn
 
-from semeval.utils import *
+from semeval.common.utils import *
 
 
-def extractWordNet_Features_Helper(totalTokens, hypernyms,hyponyms,holonyms,meronyms):
-    upperLimit = WORD_NET_FEATURE_LENGTH*totalTokens
-    printConsole("Limit:" + str(upperLimit))
-    if(len(hypernyms)<upperLimit):
-        diffToPad = upperLimit-len(hypernyms)
-        while(diffToPad>0):
+def extractWordNet_Features_Helper(totalTokens, hypernyms, hyponyms, holonyms, meronyms):
+    upperLimit = WORD_NET_FEATURE_LENGTH * totalTokens
+    if len(hypernyms) < upperLimit:
+        diffToPad = upperLimit - len(hypernyms)
+        while diffToPad > 0:
             hypernyms.append(PADDING_CHARACTER)
-            diffToPad = diffToPad-1
-    if(len(hyponyms)<upperLimit):
-        diffToPad = upperLimit-len(hyponyms)
-        while(diffToPad>0):
+            diffToPad = diffToPad - 1
+    if len(hyponyms) < upperLimit:
+        diffToPad = upperLimit - len(hyponyms)
+        while diffToPad > 0:
             hyponyms.append(PADDING_CHARACTER)
-            diffToPad = diffToPad-1
-    if(len(holonyms)<upperLimit):
-        diffToPad = upperLimit-len(holonyms)
-        while(diffToPad>0):
+            diffToPad = diffToPad - 1
+    if len(holonyms) < upperLimit:
+        diffToPad = upperLimit - len(holonyms)
+        while diffToPad > 0:
             holonyms.append(PADDING_CHARACTER)
-            diffToPad = diffToPad-1
-    if(len(meronyms)<upperLimit):
-        diffToPad = upperLimit-len(meronyms)
-        while(diffToPad>0):
+            diffToPad = diffToPad - 1
+    if len(meronyms) < upperLimit:
+        diffToPad = upperLimit - len(meronyms)
+        while diffToPad > 0:
             meronyms.append(PADDING_CHARACTER)
-            diffToPad = diffToPad-1
-    # printConsole("Hypernyms After Padding: ")
-    # printConsole(hypernyms)
-    # printConsole("Hyponyms After Padding: ")
-    # printConsole(hyponyms)
-    # printConsole("Holonyms After Padding: ")
-    # printConsole(holonyms)
-    # printConsole("Meronyms After Padding: ")
-    # printConsole(meronyms)
+            diffToPad = diffToPad - 1
     hypernymDictValues = []
     hypernymDictKeys = []
     counter = 1
     for entry in hypernyms:
-        hypernymDictKeys.append(HYPER_TAG+str(counter))
+        hypernymDictKeys.append(HYPER_TAG + str(counter))
         hypernymDictValues.append(entry)
         counter = counter + 1
     hypernymDict = dict(zip(hypernymDictKeys, hypernymDictValues))
-    #print(hypernymDict)
 
     hyponymDictValues = []
     hyponymDictKeys = []
@@ -52,7 +42,7 @@ def extractWordNet_Features_Helper(totalTokens, hypernyms,hyponyms,holonyms,mero
         hyponymDictValues.append(entry)
         counter = counter + 1
     hyponymDict = dict(zip(hyponymDictKeys, hyponymDictValues))
-    #print(hyponymDict)
+
     holonymDictValues = []
     holonymDictKeys = []
     counter = 1
@@ -61,7 +51,7 @@ def extractWordNet_Features_Helper(totalTokens, hypernyms,hyponyms,holonyms,mero
         holonymDictValues.append(entry)
         counter = counter + 1
     holonymDict = dict(zip(holonymDictKeys, holonymDictValues))
-    #print(holonymDict)
+
     meronymDictValues = []
     meronymDictKeys = []
     counter = 1
@@ -70,7 +60,7 @@ def extractWordNet_Features_Helper(totalTokens, hypernyms,hyponyms,holonyms,mero
         meronymDictValues.append(entry)
         counter = counter + 1
     meronymDict = dict(zip(meronymDictKeys, meronymDictValues))
-    #print(meronymDict)
+
     allWordNetFeaturesDict = {**hypernymDict, **hyponymDict, **holonymDict, **meronymDict}
     return allWordNetFeaturesDict
 
@@ -81,7 +71,7 @@ def extractWordNet_Hypernyms(token):
         if (len(hypernyms) < 2):
             for hyper in ss.hypernyms():
                 for l in hyper.lemma_names():
-                    if(len(hypernyms)<2):
+                    if (len(hypernyms) < 2):
                         hypernyms.append(l)
     return hypernyms
 
@@ -96,6 +86,7 @@ def extractWordNet_Hyponyms(token):
                         hyponyms.append(l)
     return hyponyms
 
+
 def extractWordNet_Meronyms(token):
     meronyms = []
     for ss in wn.synsets(token):
@@ -105,6 +96,7 @@ def extractWordNet_Meronyms(token):
                     if (len(meronyms) < 2):
                         meronyms.append(l)
     return meronyms
+
 
 def extractWordNet_Holonyms(token):
     holonyms = []

@@ -1,10 +1,8 @@
 import re
-from semeval import preprocessor
-from semeval.utils import *
+from semeval.common.utils import *
 
-def corpusReader():
-    relationMap = preprocessor.getPreProcessedRelationMap()
-    with open(TRAINING_FILE_NAME, 'r') as file:
+def readFile(semevalFile,semanticRelationMap):
+    with open(semevalFile, 'r') as file:
         text = file.read()
         processedParaList = []
         paragraphs = [s for s in text.split('\n\n') if s]
@@ -25,10 +23,10 @@ def corpusReader():
                     tempSplit = relationComponent.split("(")
                     completeRelation = tempSplit[0]
                     direction = tempSplit[1].replace(")", "")
-                    if (direction == "e1,e2"):
-                        relation_direction = 0
+                    if (direction == E1_E2):
+                        relation_direction = E1_to_E2
                     else:
-                        relation_direction = 1
+                        relation_direction = E2_to_E1
                 else:
                     completeRelation = relationComponent
                 preprocessed_sent = completeSentence.replace("<e1>", "") \
@@ -37,7 +35,7 @@ def corpusReader():
                 feature_array.append(preprocessed_sent)
                 feature_array.append(e_1)
                 feature_array.append(e_2)
-                feature_array.append(relationMap.get(completeRelation))
+                feature_array.append(semanticRelationMap.get(completeRelation))
                 feature_array.append(relation_direction)
                 processedParaList.append(feature_array)
     return processedParaList

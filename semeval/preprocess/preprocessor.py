@@ -1,7 +1,7 @@
-from semeval.utils import *
+from semeval.common.utils import *
+
 
 def getMaxSentenceLengthInTraining():
-    printConsole("In Function - getMaxSentenceLengthInTraining()")
     with open(TRAINING_FILE_NAME, 'r') as file:
         text = file.read()
         paragraphs = [s for s in text.split('\n\n') if s]
@@ -11,23 +11,22 @@ def getMaxSentenceLengthInTraining():
                 paragraph = trim(paragraph)
                 paragraphLines = paragraph.split("\n")
                 completeSentence = paragraphLines[0]
-                completeSentence = completeSentence.replace("\"",'')
-                completeSentence = completeSentence.replace("<e1>",'')
+                completeSentence = completeSentence.replace("\"", '')
+                completeSentence = completeSentence.replace("<e1>", '')
                 completeSentence = completeSentence.replace("</e1>", '')
                 completeSentence = completeSentence.replace("<e2>", '')
                 completeSentence = completeSentence.replace("</e2>", '')
-                while(completeSentence[0].isdigit()):
-                    completeSentence = completeSentence.replace(completeSentence[0],'')
-                sentence = trim(completeSentence) #Plain Sentence Obtained
+                while (completeSentence[0].isdigit()):
+                    completeSentence = completeSentence.replace(completeSentence[0], '')
+                sentence = trim(completeSentence)
                 currentSentenceLength = len(sentence.split())
-                if(currentSentenceLength > maxLength):
+                if (currentSentenceLength > maxLength):
                     maxLength = currentSentenceLength
-        printConsole("Max Length of Sentence Is:"+str(maxLength))
+        printConsole("Max Length of Sentence Is:" + str(maxLength))
         return maxLength
 
 
 def getPreProcessedRelationMap():
-    printConsole("In Function - getPreProcessedRelationMap()")
     relationshipSet = set()
     with open(TRAINING_FILE_NAME, 'r') as file:
         text = file.read()
@@ -40,20 +39,14 @@ def getPreProcessedRelationMap():
                 relationship = relationshipAndDirection.split("(")[0]
                 relationship = trim(relationship)
                 relationshipSet.add(relationship)
-        #print(relationshipSet)
-        printConsole("Extracted All Relationships In Set")
         relationshipToIndexMap = {}
         indexToRelationshipMap = {}
         relationMapValueCounter = 1
         for relation in relationshipSet:
-            relationshipToIndexMap[relation]= relationMapValueCounter
-            indexToRelationshipMap[relationMapValueCounter] =relation
+            relationshipToIndexMap[relation] = relationMapValueCounter
+            indexToRelationshipMap[relationMapValueCounter] = relation
             relationMapValueCounter = relationMapValueCounter + 1
-        #print(relationshipToIndexMap)
-        #print(indexToRelationshipMap)
-        printConsole("Transformed Relationship Set to relationshipToIndexMap is: ")
+        printConsole("Semantic Relations Mapping: ")
         printConsole(relationshipToIndexMap)
-        printConsole("Transformed Relationship Set to indexToRelationshipMap is: ")
         printConsole(indexToRelationshipMap)
-        printConsole("Returning relationshipToIndexMap ")
-        return relationshipToIndexMap
+        return relationshipToIndexMap, indexToRelationshipMap

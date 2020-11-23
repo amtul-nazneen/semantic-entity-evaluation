@@ -1,20 +1,25 @@
-from semeval import preprocessor, mlClassifier,corpusReader,nlpPipeline
-from semeval.utils import *
+import warnings
 
-MAX_SENTENCE_LENGTH = preprocessor.getMaxSentenceLengthInTraining()
+from semeval.preprocess import preprocessor
+from semeval.common.utils import *
+from semeval.workflow import semevalWorkflow
+
 
 def main():
-    printConsole("Training Begins")
-    processedParaList = corpusReader.corpusReader()
-    printConsole("Corpus Reader Completed")
-    allSentenceFeatures, allSentenceRelations, allSentenceDirections = \
-    nlpPipeline.deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH)
-    printConsole("Training Model for Relation")
-    trainedMLModelRelation = mlClassifier.train_MLClassifier_Relation(allSentenceFeatures,allSentenceRelations)
-    printConsole("Training Model for Direction")
-    trainedMLModelDirection = mlClassifier.train_MLClassifier_Direction(allSentenceFeatures,allSentenceDirections)
-    printConsole("Learned Model is Ready")
-    #TODO- Code for prediction
+    printConsole("********** Team Hyderabadi Biryani: Semantic Evaluation In Named Entities **********")
+    warnings.simplefilter("ignore")
+    semanticRelationMap,indexToRelationshipMap = preprocessor.getPreProcessedRelationMap()
+    printConsole("********** Beginning Training Flow **********")
+    trainedMLModelRelation, dictVectorRelation, trainedMLModelDirection, dictVectorDirection = \
+        semevalWorkflow.orchestrateTrainingFlow(TRAINING_FILE_NAME, semanticRelationMap)
+    printConsole("********** Beginning Testing Flow **********")
+    semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap,
+                                           trainedMLModelRelation, dictVectorRelation,
+                                           trainedMLModelDirection, dictVectorDirection)
+    printConsole("********** Beginning Manual User-Input Flow **********")
+    semevalWorkflow.testInputSentence(trainedMLModelRelation, dictVectorRelation,
+                                      trainedMLModelDirection, dictVectorDirection, indexToRelationshipMap)
+
 
 if __name__ == '__main__':
     main()
