@@ -3,8 +3,6 @@ import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
-from semeval.common.utils import printConsole
-
 def train_MLClassifier_Relation(allSentenceFeatures,allSentenceRelations):
     dv = DictVectorizer(sparse=True)
     X = dv.fit_transform(allSentenceFeatures)
@@ -25,16 +23,12 @@ def train_MLClassifier_Direction(allSentenceFeatures,allSentenceDirections):
 
 def predict_MLClassifier_Direction(trainedDirectionModel,dictVectorizer,input):
     predictedDirection = trainedDirectionModel.predict(dictVectorizer.transform(input))
-    #printConsole("Predicated Direction: ")
-    #printConsole(predictedDirection)
-    return predictedDirection
+    return predictedDirection[0]
 
 
 def predict_MLClassifier_Relation(trainedRelationModel,dictVectorizer,input):
     predictedRelation = trainedRelationModel.predict(dictVectorizer.transform(input))
-    #printConsole("Predicated Relation: ")
-    #printConsole(predictedRelation)
-    return predictedRelation
+    return predictedRelation[0]
 
 
 # --> !!Not using below code: Storing for future may be

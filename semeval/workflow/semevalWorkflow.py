@@ -17,10 +17,10 @@ def orchestrateTrainingFlow(fileName, semanticRelationMap):
     printConsole(">>>>>> Training Flow: Invoking Classifiers")
     trainedMLModelRelation, dictVectorRelation =\
         mlClassifier.train_MLClassifier_Relation(allSentenceFeatures, allSentenceRelations)
-    printConsole("ML Learning Model for Relation Classification is Complete")
+    printConsole(">>>>>> Training Flow: ML Learning Model for Relation Classification is Complete")
     trainedMLModelDirection, dictVectorDirection = \
         mlClassifier.train_MLClassifier_Direction(allSentenceFeatures, allSentenceDirections)
-    printConsole("ML Learning Model for Direction Classification is Complete")
+    printConsole(">>>>>> Training Flow: ML Learning Model for Direction Classification is Complete")
     return trainedMLModelRelation, dictVectorRelation, trainedMLModelDirection, dictVectorDirection
 
 def orchestrateTestingFlow(fileName,semanticRelationMap,
@@ -63,8 +63,8 @@ def testInputSentence(trainedMLModelRelation, dictVectorRelation,
                 (trainedMLModelRelation, dictVectorRelation, inputSentenceFeature)
             predictedDirection = mlClassifier.predict_MLClassifier_Direction \
                 (trainedMLModelDirection, dictVectorDirection, inputSentenceFeature)
-            relation  = indexToRelationshipMap.get(predictedRelation[0])
-            if(predictedDirection[0] ==E1_to_E2):
+            relation  = indexToRelationshipMap.get(predictedRelation)
+            if(predictedDirection ==E1_to_E2):
                 direction = E1_E2
             else:
                 direction = E2_E1

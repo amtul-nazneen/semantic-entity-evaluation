@@ -27,11 +27,11 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH):
         allSentenceFeatures.append(allMergedFeatures)
         allSentenceDirections.append(direction)
         allSentenceRelations.append(relation)
-    printConsole("Returning: allSentenceFeatures")
+    printConsole("NLP Pipeline: All-Sentence-Features")
     printConsole(allSentenceFeatures)
-    printConsole("Returning: allSentenceRelations")
+    printConsole("NLP Pipeline: All-Sentence-Relations")
     printConsole(allSentenceRelations)
-    printConsole("Returning: allSentenceDirections")
+    printConsole("NLP Pipeline: All-Sentence-Directions")
     printConsole(allSentenceDirections)
     return allSentenceFeatures, allSentenceRelations, allSentenceDirections
 
