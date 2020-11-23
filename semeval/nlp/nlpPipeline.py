@@ -14,6 +14,7 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH):
         entity2 = entry[2]
         relation = entry[3]
         direction = entry[4]
+        tokenizedArray = featureExtractor.extractTokens(sentence,nlp) #Invoking, but not used
         parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
         printConsole("Dependency Parsing Tokens for given sentence: ")
         printConsole(parsingArray)
@@ -45,6 +46,7 @@ def mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray):
 
 
 def getAllFeaturesForInputSentence(sentence,entity1, entity2,MAX_SENTENCE_LENGTH):
+    tokenizedArray = featureExtractor.extractTokens(sentence, nlp)  # Invoking, but not used
     parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
     printConsole("Dependency Parsing Tokens for input sentence: ")
     printConsole(parsingArray)
