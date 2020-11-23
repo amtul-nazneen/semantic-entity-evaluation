@@ -6,11 +6,13 @@ from semeval.nlp import nlpPipeline
 from semeval.preprocess import preprocessor, corpusReader
 from semeval.common.utils import *
 
-MAX_SENTENCE_LENGTH = preprocessor.getMaxSentenceLengthInTraining()
+#TODO: Preprocess max dependency path sentence length
+MAX_SENTENCE_LENGTH = 10#preprocessor.getMaxSentenceLengthInTraining()
 
 def orchestrateTrainingFlow(fileName, semanticRelationMap):
     processedParaListTrain = corpusReader.readFile(fileName,semanticRelationMap)
     printConsole(">>>>>> Training Flow: Corpus Reader Completed")
+    printConsole(">>>>>> Training Flow: NLP Pipeline Beginning")
     allSentenceFeatures, allSentenceRelations, allSentenceDirections = \
         nlpPipeline.deepNLPPipeline(processedParaListTrain, MAX_SENTENCE_LENGTH)
     printConsole(">>>>>> Training Flow: NLP Pipeline Completed")
@@ -27,6 +29,7 @@ def orchestrateTestingFlow(fileName,semanticRelationMap,
                            trainedMLModelRelation, dictVectorRelation, trainedMLModelDirection, dictVectorDirection):
     processedParaListTest = corpusReader.readFile(fileName,semanticRelationMap)
     printConsole(">>>>>> Testing Flow: Corpus Reader Completed")
+    printConsole(">>>>>> Testing Flow: NLP Pipeline Beginning")
     allSentenceFeatures, allSentenceExpectedRelations, allSentenceExpectedDirections = \
         nlpPipeline.deepNLPPipeline(processedParaListTest, MAX_SENTENCE_LENGTH)
     printConsole(">>>>>> Testing Flow: NLP Pipeline Completed")
@@ -59,6 +62,8 @@ def testInputSentence(trainedMLModelRelation, dictVectorRelation,
             entity1 = raw_input('Entity_1:')
             entity2 = raw_input('Entity_2:')
             inputSentenceFeature = nlpPipeline.getAllFeaturesForInputSentence(inputSentence,entity1,entity2,MAX_SENTENCE_LENGTH)
+            printConsole("NLP Pipeline Output: All-Sentence-Features")
+            printConsole(inputSentenceFeature)
             predictedRelation = mlClassifier.predict_MLClassifier_Relation \
                 (trainedMLModelRelation, dictVectorRelation, inputSentenceFeature)
             predictedDirection = mlClassifier.predict_MLClassifier_Direction \

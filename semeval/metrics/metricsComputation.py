@@ -1,6 +1,7 @@
 from semeval.common.utils import printConsole
 
 
+#TODO: Complete computations
 def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDirections,
                             allSentencePredictedRelations,allSentencePredictedDirections):
     printConsole("Beginning computation")

@@ -14,27 +14,27 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH):
         entity2 = entry[2]
         relation = entry[3]
         direction = entry[4]
-        tokenArray = featureExtractor.extractTokens(sentence, nlp)
+        parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
+        printConsole("Dependency Parsing Tokens for given sentence: ")
+        printConsole(parsingArray)
+        tokenArray = parsingArray
         paddedTokenArray = featureExtractor.padTokenArray(tokenArray, MAX_SENTENCE_LENGTH)
         lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
         POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
         nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
         wordNetArray = featureExtractor.extractWordNet_Features(paddedTokenArray)
-        parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
+
         allMergedFeatures = mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray)
-        # printConsole("All Merged Features For Sentence:")
-        # printConsole(allMergedFeatures)
         allSentenceFeatures.append(allMergedFeatures)
         allSentenceDirections.append(direction)
         allSentenceRelations.append(relation)
-    printConsole("NLP Pipeline: All-Sentence-Features")
+    printConsole("NLP Pipeline Output: All-Sentence-Features")
     printConsole(allSentenceFeatures)
-    printConsole("NLP Pipeline: All-Sentence-Relations")
+    printConsole("NLP Pipeline Output: All-Sentence-Relations")
     printConsole(allSentenceRelations)
-    printConsole("NLP Pipeline: All-Sentence-Directions")
+    printConsole("NLP Pipeline Output: All-Sentence-Directions")
     printConsole(allSentenceDirections)
     return allSentenceFeatures, allSentenceRelations, allSentenceDirections
-
 
 def mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray):
     allMergedFeatures = lemmaArray.copy()
@@ -45,11 +45,14 @@ def mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray):
 
 
 def getAllFeaturesForInputSentence(sentence,entity1, entity2,MAX_SENTENCE_LENGTH):
-    tokenArray = featureExtractor.extractTokens(sentence, nlp)
+    parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
+    printConsole("Dependency Parsing Tokens for input sentence: ")
+    printConsole(parsingArray)
+    tokenArray = parsingArray
     paddedTokenArray = featureExtractor.padTokenArray(tokenArray, MAX_SENTENCE_LENGTH)
     lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
     POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
     nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
     wordNetArray = featureExtractor.extractWordNet_Features(paddedTokenArray)
-    parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
+
     return mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray)

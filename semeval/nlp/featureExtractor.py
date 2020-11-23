@@ -1,7 +1,7 @@
 import json
 import string
 from semeval.nlp import wordnetHelper
-from semeval.common.utils import PADDING_CHARACTER, NER_OTHER
+from semeval.common.utils import PADDING_CHARACTER, NER_OTHER, printConsole
 import spacy
 import networkx as nx
 
@@ -50,6 +50,7 @@ def extractPOS_Features(tokenArray,nlp):
             break
     return res_pos
 
+#TODO- Testing on whole test set and allow multiple words to give output
 def extractNER_Features(tokenArray, entity1, entity2, nlp):
     sentence = " ".join(tokenArray)
     parsed_str = nlp.annotate(sentence, properties=props)
@@ -105,6 +106,7 @@ def padTokenArray(tokenArray,MAX_SENTENCE_LENGTH):
     return tokenArray
 
 
+#TODO- Testing on whole test set
 def extractParsing_Features(sentence,entity1,entity2):
     doc = nlp_spacy(sentence)
     #print('sentence:'.format(doc))  # Load spacy's dependency tree into a networkx graph
@@ -117,6 +119,5 @@ def extractParsing_Features(sentence,entity1,entity2):
     entity1 = entity1.lower()
     entity2 = entity2
     #print(nx.shortest_path_length(graph, source=entity1, target=entity2))
-    #print(nx.shortest_path(graph, source=entity1, target=entity2))
     return nx.shortest_path(graph, source=entity1, target=entity2)
 
