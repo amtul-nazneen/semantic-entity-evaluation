@@ -93,6 +93,10 @@ def extractWordNet_Features(tokenArray):
         holonymsArray = wordnetHelper.extractWordNet_Holonyms(token)
         for holonym in holonymsArray:
             holonyms.append(holonym)
+    hypernyms.sort()
+    hyponyms.sort()
+    meronyms.sort()
+    holonyms.sort()
     allWordNetFeaturesDict =\
         wordnetHelper.extractWordNet_Features_Helper(len(tokenArray), hypernyms, hyponyms, holonyms, meronyms)
     return allWordNetFeaturesDict

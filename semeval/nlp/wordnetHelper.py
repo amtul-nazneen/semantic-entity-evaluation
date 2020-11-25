@@ -68,42 +68,50 @@ def extractWordNet_Features_Helper(totalTokens, hypernyms, hyponyms, holonyms, m
 def extractWordNet_Hypernyms(token):
     hypernyms = []
     for ss in wn.synsets(token):
-        if (len(hypernyms) < 2):
+        if (len(hypernyms) < WORD_NET_FEATURE_LENGTH):
             for hyper in ss.hypernyms():
                 for l in hyper.lemma_names():
-                    if (len(hypernyms) < 2):
-                        hypernyms.append(l)
+                    if (len(hypernyms) < WORD_NET_FEATURE_LENGTH):
+                        if(not l in hypernyms):
+                            hypernyms.append(l.lower())
+    hypernyms.sort()
     return hypernyms
 
 
 def extractWordNet_Hyponyms(token):
     hyponyms = []
     for ss in wn.synsets(token):
-        if (len(hyponyms) < 2):
+        if (len(hyponyms) < WORD_NET_FEATURE_LENGTH):
             for hypo in ss.hyponyms():
                 for l in hypo.lemma_names():
-                    if (len(hyponyms) < 2):
-                        hyponyms.append(l)
+                    if (len(hyponyms) < WORD_NET_FEATURE_LENGTH):
+                        if (not l in hyponyms):
+                               hyponyms.append(l.lower())
+    hyponyms.sort()
     return hyponyms
 
 
 def extractWordNet_Meronyms(token):
     meronyms = []
     for ss in wn.synsets(token):
-        if (len(meronyms) < 2):
+        if (len(meronyms) < WORD_NET_FEATURE_LENGTH):
             for mero in ss.part_meronyms():
                 for l in mero.lemma_names():
-                    if (len(meronyms) < 2):
-                        meronyms.append(l)
+                    if (len(meronyms) < WORD_NET_FEATURE_LENGTH):
+                        if (not l in meronyms):
+                               meronyms.append(l.lower())
+    meronyms.sort()
     return meronyms
 
 
 def extractWordNet_Holonyms(token):
     holonyms = []
     for ss in wn.synsets(token):
-        if (len(holonyms) < 2):
+        if (len(holonyms) < WORD_NET_FEATURE_LENGTH):
             for holo in ss.part_holonyms():
                 for l in holo.lemma_names():
-                    if (len(holonyms) < 2):
-                        holonyms.append(l)
+                    if (len(holonyms) < WORD_NET_FEATURE_LENGTH):
+                        if (not l in holonyms):
+                               holonyms.append(l.lower())
+    holonyms.sort()
     return holonyms
