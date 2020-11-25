@@ -97,7 +97,9 @@ def extractWordNet_Features(tokenArray):
         wordnetHelper.extractWordNet_Features_Helper(len(tokenArray), hypernyms, hyponyms, holonyms, meronyms)
     return allWordNetFeaturesDict
 
-def padTokenArray(tokenArray,MAX_SENTENCE_LENGTH):
+def padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH):
+    for token in tokenArray:
+        token.lower()
     currentLength = len(tokenArray)
     difference = MAX_SENTENCE_LENGTH-currentLength
     while(difference>0):

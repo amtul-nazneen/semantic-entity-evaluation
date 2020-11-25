@@ -10,16 +10,23 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH):
     allSentenceRelations = []
     for entry in processedParaList:
         sentence = entry[0]
-        entity1 = entry[1]
-        entity2 = entry[2]
+        entity1Original = entry[1]
+        entity2Original = entry[2]
         relation = entry[3]
         direction = entry[4]
+        entity1,entity2 = concatenateAndChangeCase(entity1Original, entity2Original)
+        printConsole("Original Sentence: " + sentence)
+        printConsole("Original Entities: " + entity1Original + ":" + entity2Original)
+        sentence = sentence.replace(entity1Original,entity1)
+        sentence = sentence.replace(entity2Original, entity2)
+        printConsole("Modified Sentence: " + sentence)
+        printConsole("Modified Entities: " + entity1 + ":" + entity2)
         tokenizedArray = featureExtractor.extractTokens(sentence,nlp) #Invoking, but not used
         parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
         printConsole("Dependency Parsing Tokens for given sentence: ")
         printConsole(parsingArray)
         tokenArray = parsingArray
-        paddedTokenArray = featureExtractor.padTokenArray(tokenArray, MAX_SENTENCE_LENGTH)
+        paddedTokenArray = featureExtractor.padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH)
         lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
         POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
         nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
@@ -45,16 +52,35 @@ def mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray):
     return allMergedFeatures
 
 
-def getAllFeaturesForInputSentence(sentence,entity1, entity2,MAX_SENTENCE_LENGTH):
+def getAllFeaturesForInputSentence(sentence,entity1Original, entity2Original,MAX_SENTENCE_LENGTH):
+    entity1, entity2 = concatenateAndChangeCase(entity1Original, entity2Original)
+    sentence = sentence.replace(entity1Original, entity1)
+    sentence = sentence.replace(entity2Original, entity2)
+    printConsole("Modified Sentence: " + sentence)
+    printConsole("Modified entities: " + entity1 + ":" + entity2)
     tokenizedArray = featureExtractor.extractTokens(sentence, nlp)  # Invoking, but not used
     parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
     printConsole("Dependency Parsing Tokens for input sentence: ")
     printConsole(parsingArray)
     tokenArray = parsingArray
-    paddedTokenArray = featureExtractor.padTokenArray(tokenArray, MAX_SENTENCE_LENGTH)
+    paddedTokenArray = featureExtractor.padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH)
     lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
     POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
     nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
     wordNetArray = featureExtractor.extractWordNet_Features(paddedTokenArray)
 
     return mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray)
+
+
+def concatenateAndChangeCase(entity1, entity2):
+    entity1Concatenated = ""
+    entity2Concatenated = ""
+    words = entity1.strip().split()
+    for word in words:
+        entity1Concatenated = entity1Concatenated + word
+        entity1Concatenated = entity1Concatenated.replace("-","")
+    words = entity2.strip().split()
+    for word in words:
+        entity2Concatenated = entity2Concatenated + word
+        entity2Concatenated = entity2Concatenated.replace("-", "")
+    return entity1Concatenated.lower(), entity2Concatenated.lower()

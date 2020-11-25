@@ -846,7 +846,7 @@ Other
 Component-Whole(e2,e1)
 
 
-213	"In a former residence, your writer had an atrium containing a <e1>duel</e1> of doves<e2>moles</e2> numbering 22."
+213	"In a former residence, your writer had an atrium containing a <e1>duel</e1> of doves <e2>moles</e2> numbering 22."
 Member-Collection(e2,e1)
 
 
