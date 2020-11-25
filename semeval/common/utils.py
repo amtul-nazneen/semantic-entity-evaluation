@@ -2,6 +2,7 @@ import datetime
 
 #TRAINING_FILE_NAME = 'semeval_train_small.txt'
 TRAINING_FILE_NAME = '../data/semeval_train.txt'
+#TRAINING_FILE_NAME = '../data/temp_test'
 TESTING_FILE_NAME = 'semeval_test_small.txt'
 #TESTING_FILE_NAME = '../data/semeval_test.txt'
 WORD_NET_FEATURE_LENGTH = 3

@@ -10954,7 +10954,7 @@ Entity-Destination(e1,e2)
 Entity-Origin(e1,e2)
 
 
-2740	"The<e1>staff</e1> in the <e2>shop</e2> are all left-handed themselves and are happy to demonstrate products, explain why they are left-handed and give helpful advice to left-handers of all ages."
+2740	"The <e1>staff</e1> in the <e2>shop</e2> are all left-handed themselves and are happy to demonstrate products, explain why they are left-handed and give helpful advice to left-handers of all ages."
 Other
 
 
@@ -16870,7 +16870,7 @@ Other
 Instrument-Agency(e2,e1)
 
 
-4219	"The agency spent this week auctioning off a 12-<e1>pack</e1> of beer-commercial <e2>scripts</e2> on eBay."
+4219	"The agency spent this week auctioning off a 12- <e1>pack</e1> of beer-commercial <e2>scripts</e2> on eBay."
 Member-Collection(e2,e1)
 
 
@@ -18442,7 +18442,7 @@ Other
 Cause-Effect(e1,e2)
 
 
-4612	"The cerebral <e1>cortex</e1> is composed of a sheet of<e2>neurons</e2> that during evolution has increased by three orders of mag- nitude in surface area."
+4612	"The cerebral <e1>cortex</e1> is composed of a sheet of <e2>neurons</e2> that during evolution has increased by three orders of mag- nitude in surface area."
 Component-Whole(e2,e1)
 
 
@@ -19130,7 +19130,7 @@ Member-Collection(e1,e2)
 Entity-Origin(e2,e1)
 
 
-4784	"When the<e1>coil</e1> of the <e2>relay</e2> is at rest (not energized), the common terminal (30) and the normally closed terminal (87a) have continuity."
+4784	"When the <e1>coil</e1> of the <e2>relay</e2> is at rest (not energized), the common terminal (30) and the normally closed terminal (87a) have continuity."
 Component-Whole(e1,e2)
 
 
@@ -25486,7 +25486,7 @@ Instrument-Agency(e2,e1)
 Component-Whole(e1,e2)
 
 
-6373	"A talon is the <e1>claw</e1> of a<e2>bird</e2> of prey."
+6373	"A talon is the <e1>claw</e1> of a <e2>bird</e2> of prey."
 Component-Whole(e1,e2)
 
 

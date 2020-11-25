@@ -1,6 +1,6 @@
 8001	"The most common <e1>audits</e1> were about <e2>waste</e2> and recycling."
-Message-Topic(e1,e2)
+Entity-Destination(e1,e2)
 
 
 8002	"The <e1>company</e1> fabricates plastic <e2>chairs</e2>."
-Instrument-Agency(e2,e1)
+Member-Collection(e2,e1)
