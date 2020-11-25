@@ -60,20 +60,26 @@ def extractNER_Features(tokenArray, entity1, entity2, nlp):
     # for key in tokenArray:
     # can also use - token_pos=dict(zip(sents_no_punct, pos_list))
     ner_array = {}
-    for key in tokenArray:
+    for i in range(1, len(tokenArray) + 1):#for key in tokenArray:
         for value in ner_list:
-            res_ner[key] = value
+            if(tokenArray[i-1]=='$'):
+                res_ner["ner" + str(i)] = '$'
+            else:
+                if(value == 'O'):
+                    res_ner["ner" + str(i)] = NER_OTHER
+                else:
+                    res_ner["ner" + str(i)] = value
             ner_list.remove(value)
             break
-    e1_ner = res_ner[entity1]
-    e2_ner = res_ner[entity2]
-    if(e1_ner == 'O'):
-        e1_ner =NER_OTHER
-    if (e2_ner == 'O'):
-        e2_ner = NER_OTHER
-    ner_array["entity1"]= e1_ner
-    ner_array["entity2"]= e2_ner
-    return ner_array
+    # e1_ner = res_ner[entity1]
+    # e2_ner = res_ner[entity2]
+    # if(e1_ner == 'O'):
+    #     e1_ner =NER_OTHER
+    # if (e2_ner == 'O'):
+    #     e2_ner = NER_OTHER
+    # ner_array["entity1"]= e1_ner
+    # ner_array["entity2"]= e2_ner
+    return res_ner
 
 def extractWordNet_Features(tokenArray):
     hypernyms = []
@@ -93,6 +99,10 @@ def extractWordNet_Features(tokenArray):
         holonymsArray = wordnetHelper.extractWordNet_Holonyms(token)
         for holonym in holonymsArray:
             holonyms.append(holonym)
+    hypernyms.sort()
+    hyponyms.sort()
+    meronyms.sort()
+    holonyms.sort()
     allWordNetFeaturesDict =\
         wordnetHelper.extractWordNet_Features_Helper(len(tokenArray), hypernyms, hyponyms, holonyms, meronyms)
     return allWordNetFeaturesDict
