@@ -1,0 +1,30 @@
+4783	"A popular local <e1>restaurant</e1> is the source of an <e2>outbreak</e2> linked to Salmonella."
+Entity-Origin(e2,e1)
+
+
+4784	"When the <e1>coil</e1> of the <e2>relay</e2> is at rest (not energized), the common terminal (30) and the normally closed terminal (87a) have continuity."
+Component-Whole(e1,e2)
+
+
+4785	"The Manor, with its <e1>tower</e1> of endangered Rothschild's <e2>giraffes</e2>, also features an education center where kids can take guided walks through the surrounding primeval forest and learn about the rich local flora and fauna."
+Member-Collection(e2,e1)
+
+
+4786	"The <e1>cell line</e1> was derived from a macrophage-enriched <e2>cell culture</e2>."
+Other
+
+
+4787	"The <e1>apartment</e1> has a separate <e2>dining room</e2>, which can easily be converted into a third bedroom if need be."
+Component-Whole(e2,e1)
+
+
+4788	"Campbell, from the <e1>congressman</e1>'s own <e2>party</e2>, stepped into the fray, introducing a special bill that made an exception to the general rule in the particular case of the student, Jesus Apodaca."
+Member-Collection(e1,e2)
+
+
+4789	"When service time came, he carefully put the <e1>wine</e1> in a <e2>cradle</e2> that holded it at an angle."
+Entity-Destination(e1,e2)
+
+
+4790	"<e1>Toxoplasmosis</e1> is caused by infection with Toxoplasma gondii, an obligate intracellular <e2>parasite</e2>."
+Cause-Effect(e2,e1)
