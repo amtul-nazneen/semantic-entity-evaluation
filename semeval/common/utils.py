@@ -6,6 +6,9 @@ TESTING_FILE_NAME = '../data/smallSet/semeval_test_small.txt'
 #TRAINING_FILE_NAME = '../data/semeval_train.txt'
 #TESTING_FILE_NAME = '../data/semeval_test.txt'
 
+TEST_STATE = "TESTING: "
+TRAIN_STATE = "TRAINING: "
+
 WORD_NET_FEATURE_LENGTH = 1
 WORD_NET_FEATURE_UPPER_LIMIT=2
 PADDING_CHARACTER = '$'

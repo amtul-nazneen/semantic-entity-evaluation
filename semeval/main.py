@@ -7,28 +7,32 @@ from semeval.workflow import semevalWorkflow
 
 
 def main():
+    warnings.simplefilter("ignore")
     printConsole("********** Team Hyderabadi Biryani: Semantic Evaluation In Named Entities **********")
     begin = time.time()
-    warnings.simplefilter("ignore")
-
-    #PRE-PROCESSED RELATION MAP
     semanticRelationMap,indexToRelationshipMap = preprocessor.getPreProcessedRelationMap()
-    printConsole("********** Beginning Training Flow **********")
 
-    # TRAINING PHASE
+    train(semanticRelationMap)
+
+    test(semanticRelationMap)
+
+    end = time.time()
+    printConsole("Total Time Taken (Training + Testing): " + str(int(end-begin)) + " seconds")
+
+    userInput(indexToRelationshipMap)
+
+
+def train(semanticRelationMap):
+    printConsole("********** Beginning Training Flow **********")
     semevalWorkflow.orchestrateTrainingFlow(TRAINING_FILE_NAME, semanticRelationMap)
+
+def test(semanticRelationMap):
+    semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap)
     printConsole("********** Beginning Testing Flow **********")
 
-    # TESTING PHASE
-    semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap)
-    end = time.time()
-
-    printConsole("Total Time Taken: " + str(int(end-begin)) + " seconds")
-
-    # USER INPUT TESTING PHASE
+def userInput(indexToRelationshipMap):
     printConsole("********** Beginning Manual User-Input Flow **********")
     semevalWorkflow.testInputSentence(indexToRelationshipMap)
-
 
 if __name__ == '__main__':
     main()

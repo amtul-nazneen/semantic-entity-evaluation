@@ -6,20 +6,20 @@ from sklearn.metrics import precision_recall_fscore_support
 # TODO: Complete computations
 def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDirections,
                             allSentencePredictedRelations, allSentencePredictedDirections, semanticRelationMap):
-    printConsole("Beginning computation")
-    printConsole("Expected Relations: ")
+    printConsole("TRAINING: Beginning computation")
+    printConsole("TRAINING: Expected Relations: ")
     printConsole(allSentenceExpectedRelations)
-    printConsole("Predicted Relations: ")
+    printConsole("TRAINING: Predicted Relations: ")
     printConsole(allSentencePredictedRelations)
-    printConsole("Expected Directions: ")
+    printConsole("TRAINING: Expected Directions: ")
     printConsole(allSentenceExpectedDirections)
-    printConsole("Predicted Directions: ")
+    printConsole("TRAINING: Predicted Directions: ")
     printConsole(allSentencePredictedDirections)
     # calculating the metrics part-4
     acc_score = accuracy_score(allSentenceExpectedRelations, allSentencePredictedRelations)
-    printConsole("Accuracy: ")
+    printConsole("TRAINING: Accuracy: ")
     printConsole(acc_score)
-    printConsole("Precision, Recall and FScore : ")
+    printConsole("TRAINING: Precision, Recall and FScore : ")
     printConsole(
         precision_recall_fscore_support(allSentenceExpectedRelations,
                                         allSentencePredictedRelations, average='macro'))
@@ -28,9 +28,9 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
     relationLabels = []
     for relation in semanticRelationMapValues:
         relationLabels.append(relation)
-    printConsole("Relation Labels: ")
+    printConsole("TRAINING: Relation Labels: ")
     printConsole(relationLabels)
-    printConsole("Precision, Recall and FScore Per Label: ")
+    printConsole("TRAINING: Precision, Recall and FScore Per Label: ")
     printConsole(precision_recall_fscore_support(allSentenceExpectedRelations,
                                                  allSentencePredictedRelations, average=None,
                                                  labels=relationLabels))

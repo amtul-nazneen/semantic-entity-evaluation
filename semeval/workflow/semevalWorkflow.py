@@ -1,5 +1,5 @@
 import re
-
+import time
 from pip._vendor.distlib.compat import raw_input
 from semeval.classifier import mlClassifier
 from semeval.metrics import metricsComputation
@@ -16,7 +16,7 @@ def orchestrateTrainingFlow(fileName, semanticRelationMap):
     printConsole(">>>>>> Training Flow: Corpus Reader Completed")
     printConsole(">>>>>> Training Flow: NLP Pipeline Beginning")
     allSentenceFeatures, allSentenceRelations, allSentenceDirections = \
-        nlpPipeline.deepNLPPipeline(processedParaListTrain, MAX_SENTENCE_LENGTH)
+        nlpPipeline.deepNLPPipeline(processedParaListTrain, MAX_SENTENCE_LENGTH,TRAIN_STATE)
     printConsole(">>>>>> Training Flow: NLP Pipeline Completed")
     printConsole(">>>>>> Training Flow: Invoking Classifiers")
     trainedMLModelRelation, dictVectorRelation =\
@@ -41,7 +41,7 @@ def orchestrateTestingFlow(fileName,semanticRelationMap ):
     printConsole(">>>>>> Testing Flow: Corpus Reader Completed")
     printConsole(">>>>>> Testing Flow: NLP Pipeline Beginning")
     allSentenceFeatures, allSentenceExpectedRelations, allSentenceExpectedDirections = \
-        nlpPipeline.deepNLPPipeline(processedParaListTest, MAX_SENTENCE_LENGTH)
+        nlpPipeline.deepNLPPipeline(processedParaListTest, MAX_SENTENCE_LENGTH,TEST_STATE)
     printConsole(">>>>>> Testing Flow: NLP Pipeline Completed")
     allSentencePredictedRelations = []
     allSentencePredictedDirections = []
@@ -78,7 +78,7 @@ def testInputSentence(indexToRelationshipMap):
     dictVectorDirection = cPickle.load(open(DIRECTION_VECTORIZER_TO_DISK, READ_MODE))
     loop = True
     printConsole(">>>>>> Manual User-Test Prediction: Enter the Sentence in below format or " + INPUT_STOP_WORD + " to exit.")
-    printConsole("Jack and Jill went to the <e1>hill</e1> to fetch a pail of <e2>water</e2>.")
+    printConsole("Example: Jack and Jill went to the <e1>hill</e1> to fetch a pail of <e2>water</e2>.")
     while loop:
         inputSentence = raw_input('Input Sentence:')
         if inputSentence == INPUT_STOP_WORD:
@@ -96,6 +96,9 @@ def testInputSentence(indexToRelationshipMap):
             inputSentenceFeature = nlpPipeline.getAllFeaturesForInputSentence(inputSentence,entity1,entity2,MAX_SENTENCE_LENGTH)
             printConsole("NLP Pipeline Output: All-Sentence-Features")
             printConsole(inputSentenceFeature)
+            printConsole("Beginning Prediction")
+            begin = time.time()
+            printConsole("Loading Saved Model from Disk..")
             predictedRelation = mlClassifier.predict_MLClassifier_Relation \
                 (trainedMLModelRelation, dictVectorRelation, inputSentenceFeature)
             predictedDirection = mlClassifier.predict_MLClassifier_Direction \
@@ -107,5 +110,7 @@ def testInputSentence(indexToRelationshipMap):
                 direction = E2_E1
             printConsole("Predicted Relation: " + relation)
             printConsole("Predicated Direction: " + "("+ direction+")")
+            end = time.time()
+            printConsole("Total Prediction Time: " + str((end - begin)) + " seconds")
 
 
