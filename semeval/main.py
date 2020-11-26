@@ -1,29 +1,38 @@
+import time
 import warnings
 
-from semeval.preprocess import preprocessor
 from semeval.common.utils import *
+from semeval.preprocess import preprocessor
 from semeval.workflow import semevalWorkflow
-import time
+
 
 def main():
+    warnings.simplefilter("ignore")
     printConsole("********** Team Hyderabadi Biryani: Semantic Evaluation In Named Entities **********")
     begin = time.time()
-    warnings.simplefilter("ignore")
     semanticRelationMap,indexToRelationshipMap = preprocessor.getPreProcessedRelationMap()
-    printConsole("********** Beginning Training Flow **********")
-    #trainedMLModelRelation, dictVectorRelation, trainedMLModelDirection, dictVectorDirection = \
-    semevalWorkflow.orchestrateTrainingFlow(TRAINING_FILE_NAME, semanticRelationMap)
-    printConsole("********** Beginning Testing Flow **********")
-    #semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap,
-    #                                      trainedMLModelRelation, dictVectorRelation,
-    #                                     trainedMLModelDirection, dictVectorDirection)
-    semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap)
-    end = time.time()
-    printConsole("Total Time Taken: " + str(int(end-begin)) + " seconds")
-    printConsole("********** Beginning Manual User-Input Flow **********")
-    #semevalWorkflow.testInputSentence(trainedMLModelRelation, dictVectorRelation,
-    #                                  trainedMLModelDirection, dictVectorDirection, indexToRelationshipMap)
 
+    train(semanticRelationMap)
+
+    test(semanticRelationMap)
+
+    end = time.time()
+    printConsole("Total Time Taken (Training + Testing): " + str(int(end-begin)) + " seconds")
+
+    userInput(indexToRelationshipMap)
+
+
+def train(semanticRelationMap):
+    printConsole("********** Beginning Training Flow **********")
+    semevalWorkflow.orchestrateTrainingFlow(TRAINING_FILE_NAME, semanticRelationMap)
+
+def test(semanticRelationMap):
+    semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap)
+    printConsole("********** Beginning Testing Flow **********")
+
+def userInput(indexToRelationshipMap):
+    printConsole("********** Beginning Manual User-Input Flow **********")
+    semevalWorkflow.testInputSentence(indexToRelationshipMap)
 
 if __name__ == '__main__':
     main()

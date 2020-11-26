@@ -4,7 +4,7 @@ from semeval.common.utils import *
 
 
 def extractWordNet_Features_Helper(totalTokens, hypernyms, hyponyms, holonyms, meronyms):
-    upperLimit = 2#WORD_NET_FEATURE_LENGTH * totalTokens
+    upperLimit = WORD_NET_FEATURE_UPPER_LIMIT#WORD_NET_FEATURE_LENGTH * totalTokens
     if len(hypernyms) < upperLimit:
         diffToPad = upperLimit - len(hypernyms)
         while diffToPad > 0:

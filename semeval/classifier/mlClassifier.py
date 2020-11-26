@@ -29,12 +29,3 @@ def predict_MLClassifier_Direction(trainedDirectionModel,dictVectorizer,input):
 def predict_MLClassifier_Relation(trainedRelationModel,dictVectorizer,input):
     predictedRelation = trainedRelationModel.predict(dictVectorizer.transform(input))
     return predictedRelation[0]
-
-
-# --> !!Not using below code: Storing for future may be
-# def dict_vectorizer(allSentenceFeatures):
-#     vectorizer = DictVectorizer(sparse=True)
-#     feature_dict_vector = vectorizer.fit_transform(allSentenceFeatures).toarray()
-#     printConsole("Printing Feature Dict Vector")
-#     printConsole(feature_dict_vector)
-#     return feature_dict_vector
