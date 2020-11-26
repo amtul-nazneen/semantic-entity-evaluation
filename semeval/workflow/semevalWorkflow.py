@@ -9,7 +9,7 @@ from semeval.common.utils import *
 import _pickle as cPickle
 
 #TODO: Preprocess max dependency path sentence length
-MAX_SENTENCE_LENGTH = 10#preprocessor.getMaxSentenceLengthInTraining()
+MAX_SENTENCE_LENGTH = 11#preprocessor.getMaxSentenceLengthInTraining()
 
 def orchestrateTrainingFlow(fileName, semanticRelationMap):
     processedParaListTrain = corpusReader.readFile(fileName,semanticRelationMap)

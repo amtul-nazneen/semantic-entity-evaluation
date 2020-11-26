@@ -32,7 +32,10 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH):
         nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
         printConsole("Padded Token Array:")
         printConsole(paddedTokenArray)
-        wordNetArray = []#featureExtractor.extractWordNet_Features(paddedTokenArray)
+        wordnetInputOnlyEntity = []
+        wordnetInputOnlyEntity.append(entity1)
+        wordnetInputOnlyEntity.append(entity2)
+        wordNetArray = featureExtractor.extractWordNet_Features(wordnetInputOnlyEntity)
 
         allMergedFeatures = mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray)
         allSentenceFeatures.append(allMergedFeatures)
