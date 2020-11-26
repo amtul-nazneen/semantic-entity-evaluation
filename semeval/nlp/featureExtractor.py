@@ -51,8 +51,7 @@ def extractPOS_Features(tokenArray,nlp):
             break
     return res_pos
 
-#TODO- Testing on whole test set and allow multiple words to give output
-def extractNER_Features(tokenArray, entity1, entity2, nlp):
+def extractNER_Features_wholeArray(tokenArray, entity1, entity2, nlp):
     sentence = " ".join(tokenArray)
     parsed_str = nlp.annotate(sentence, properties=props)
     parsed_dict = json.loads(parsed_str)
@@ -81,6 +80,31 @@ def extractNER_Features(tokenArray, entity1, entity2, nlp):
     # ner_array["entity1"]= e1_ner
     # ner_array["entity2"]= e2_ner
     return res_ner
+
+def extractNER_Features(tokenArray, entity1, entity2, nlp):
+    sentence = " ".join(tokenArray)
+    parsed_str = nlp.annotate(sentence, properties=props)
+    parsed_dict = json.loads(parsed_str)
+    ner_list = [v for d in parsed_dict['sentences'][0]['tokens'] for k, v in d.items() if k == 'ner']
+    res_ner = {}
+    # for key in tokenArray:
+    # can also use - token_pos=dict(zip(sents_no_punct, pos_list))
+    ner_array = {}
+    for key in tokenArray:
+        for value in ner_list:
+            res_ner[key] = value
+            ner_list.remove(value)
+            break
+    e1_ner = res_ner[entity1]
+    e2_ner = res_ner[entity2]
+    if(e1_ner == 'O'):
+        e1_ner =NER_OTHER
+    if (e2_ner == 'O'):
+        e2_ner = NER_OTHER
+    ner_array["entity1"]= e1_ner
+    ner_array["entity2"]= e2_ner
+    return ner_array
+
 
 def extractWordNet_Features(tokenArray):
     hypernyms = []
