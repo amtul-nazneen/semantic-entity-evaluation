@@ -34,3 +34,36 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
     printConsole(precision_recall_fscore_support(allSentenceExpectedRelations,
                                                  allSentencePredictedRelations, average=None,
                                                  labels=relationLabels))
+
+    # calculating the metrics part-4 b direction
+    # clubbing both arrays relation, direction (expected)
+
+    exp_relations = allSentenceExpectedRelations
+    exp_directions = allSentenceExpectedDirections
+    expected_club = []
+
+    for i in exp_relations:
+        for j in exp_directions:
+            expected_club.append(i + j)
+        exp_relations.remove(i)
+    print(expected_club)
+
+    # clubbing both arrays relation, direction (predicted)
+
+    pred_relations = allSentencePredictedRelations
+    pred_directions = allSentencePredictedDirections
+    pred_club = []
+
+    for i in pred_relations:
+        for j in pred_directions:
+            pred_club.append(i + j)
+        pred_relations.remove(i)
+    print(pred_club)
+
+    acc_score = accuracy_score(expected_club, pred_club)
+    printConsole("TESTING Accuracy : both relation and direction")
+    printConsole(acc_score)
+    printConsole("TESTING: Precision, Recall and FScore Per label: ")
+    printConsole(
+        precision_recall_fscore_support(expected_club,
+                                        pred_club, average='macro'))

@@ -8,3 +8,11 @@ Message-Topic(e1,e2)
 
 8010	"This <e1>thesis</e1> defines the <e2>clinical characteristics</e2> of amyloid disease."
 Member-Collection(e1,e2)
+
+
+1769	"<e1>Pigs</e1> really fly....with the help of a <e2>trampoline</e2>."
+Instrument-Agency(e2,e1)
+
+
+1770	"Snails and <e1>slugs</e1> cause <e2>damage</e2> to seedlings, flowers, vegetables and shrubs."
+Cause-Effect(e1,e2)

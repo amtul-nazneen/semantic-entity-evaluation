@@ -26,7 +26,11 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH,state):
         #printConsole(state+"Dependency Parsing Tokens: ")
         #printConsole(parsingArray)
         tokenArray = parsingArray
+
+
         paddedTokenArray = featureExtractor.padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH)
+        printConsole("paddedtoken array")
+        printConsole(paddedTokenArray)
         lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
         POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
         nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
@@ -39,6 +43,21 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH,state):
         allSentenceFeatures.append(allMergedFeatures)
         allSentenceDirections.append(direction)
         allSentenceRelations.append(relation)
+
+        # extracting part-2 features for printing in a file
+        printConsole("printing features to file")
+
+        printConsole("tokenized array")
+        printConsole(tokenizedArray)
+
+        lemmaArray_file = featureExtractor.extractLemma_Features(tokenizedArray, nlp)
+        POSArray_file = featureExtractor.extractPOS_Features(tokenizedArray, nlp)
+        wordNetArray = featureExtractor.extractWordNet_Features(tokenizedArray)
+        nerArray_file = featureExtractor.extractNER_Features_wholeArray(tokenizedArray, entity1, entity2, nlp)
+        mergingAllFeatures_fileoutput(tokenizedArray, lemmaArray_file, POSArray_file, parsingArray, wordNetArray,
+                                      nerArray_file)
+
+
     printConsole(state+"NLP Pipeline Output: All-Sentence-Features")
     printConsole(allSentenceFeatures)
     printConsole(state+"NLP Pipeline Output: All-Sentence-Relations")
@@ -53,6 +72,15 @@ def mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray):
     allMergedFeatures.update(nerArray)
     allMergedFeatures.update(wordNetArray)
     return allMergedFeatures
+
+
+
+def mergingAllFeatures_fileoutput(tokensarray,lemmaArray,POSArray,dependencyparsingArray,wordNetArray,nerArray):
+
+    allMergedFeatures = 'Para number , tokens='+str(tokensarray)+'\n Lemma Array='+str(lemmaArray)+'\n POS Array='+str(POSArray)+'\n Dependency path='+str(dependencyparsingArray)+'\n Wordnet features='+str(wordNetArray)+'\n NER features='+str(nerArray)
+    with open('input_features.txt', 'a') as filehandle:
+        filehandle.write(allMergedFeatures+"\n\n\n")
+        # expensive--filehandle.close()
 
 
 def getAllFeaturesForInputSentence(sentence,entity1Original, entity2Original,MAX_SENTENCE_LENGTH):

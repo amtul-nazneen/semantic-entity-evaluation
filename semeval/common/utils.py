@@ -1,10 +1,19 @@
 import datetime
+import logging
 
-TRAINING_FILE_NAME = '../data/smallSet/semeval_train_small.txt'
-TESTING_FILE_NAME = '../data/smallSet/semeval_test_small.txt'
+logging.basicConfig(level=logging.INFO, filename="consolelogFile", filemode="a+",
+                        format="%(asctime)-15s %(levelname)-8s %(message)s")
 
-#TRAINING_FILE_NAME = '../data/semeval_train.txt'
-#TESTING_FILE_NAME = '../data/semeval_test.txt'
+
+
+#TRAINING_FILE_NAME = '../data/smallSet/semeval_train_small.txt'
+#TESTING_FILE_NAME = '../data/smallSet/semeval_test_small.txt'
+
+TRAINING_FILE_NAME = '../data/semeval_train.txt'
+TESTING_FILE_NAME = '../data/semeval_test.txt'
+
+#TRAINING_FILE_NAME = 'semeval_train_small_metrics.txt'
+#TESTING_FILE_NAME = 'semeval_test_small_metrics.txt'
 
 TEST_STATE = "TESTING: "
 TRAIN_STATE = "TRAINING: "
@@ -44,3 +53,4 @@ def trim(input):
 def printConsole(message):
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"),": ", message)
+    logging.info(str(now.strftime("%Y-%m-%d %H:%M:%S")) + ": " + str(message))
