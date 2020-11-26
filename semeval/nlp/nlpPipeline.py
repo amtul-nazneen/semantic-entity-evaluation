@@ -72,7 +72,10 @@ def getAllFeaturesForInputSentence(sentence,entity1Original, entity2Original,MAX
     lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
     POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
     nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
-    wordNetArray = featureExtractor.extractWordNet_Features(paddedTokenArray)
+    wordnetInputOnlyEntity = []
+    wordnetInputOnlyEntity.append(entity1)
+    wordnetInputOnlyEntity.append(entity2)
+    wordNetArray = featureExtractor.extractWordNet_Features(wordnetInputOnlyEntity)
 
     return mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray)
 

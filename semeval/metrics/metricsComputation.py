@@ -30,6 +30,7 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
         relationLabels.append(relation)
     printConsole("Relation Labels: ")
     printConsole(relationLabels)
+    printConsole("Precision, Recall and FScore Per Label: ")
     printConsole(precision_recall_fscore_support(allSentenceExpectedRelations,
                                                  allSentencePredictedRelations, average=None,
                                                  labels=relationLabels))

@@ -1,28 +1,33 @@
+import time
 import warnings
 
-from semeval.preprocess import preprocessor
 from semeval.common.utils import *
+from semeval.preprocess import preprocessor
 from semeval.workflow import semevalWorkflow
-import time
+
 
 def main():
     printConsole("********** Team Hyderabadi Biryani: Semantic Evaluation In Named Entities **********")
     begin = time.time()
     warnings.simplefilter("ignore")
+
+    #PRE-PROCESSED RELATION MAP
     semanticRelationMap,indexToRelationshipMap = preprocessor.getPreProcessedRelationMap()
     printConsole("********** Beginning Training Flow **********")
-    #trainedMLModelRelation, dictVectorRelation, trainedMLModelDirection, dictVectorDirection = \
+
+    # TRAINING PHASE
     semevalWorkflow.orchestrateTrainingFlow(TRAINING_FILE_NAME, semanticRelationMap)
     printConsole("********** Beginning Testing Flow **********")
-    #semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap,
-    #                                      trainedMLModelRelation, dictVectorRelation,
-    #                                     trainedMLModelDirection, dictVectorDirection)
+
+    # TESTING PHASE
     semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap)
     end = time.time()
+
     printConsole("Total Time Taken: " + str(int(end-begin)) + " seconds")
+
+    # USER INPUT TESTING PHASE
     printConsole("********** Beginning Manual User-Input Flow **********")
-    #semevalWorkflow.testInputSentence(trainedMLModelRelation, dictVectorRelation,
-    #                                  trainedMLModelDirection, dictVectorDirection, indexToRelationshipMap)
+    semevalWorkflow.testInputSentence(indexToRelationshipMap)
 
 
 if __name__ == '__main__':

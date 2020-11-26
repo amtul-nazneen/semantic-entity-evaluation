@@ -6,6 +6,7 @@ import spacy
 import networkx as nx
 
 nlp_spacy = spacy.load('en_core_web_sm')
+
 props = {
     'annotators': 'pos,lemma,depparse,ner',
     'pipelineLanguage': 'en',
@@ -121,7 +122,6 @@ def padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH):
 #TODO- Testing on whole test set
 def extractParsing_Features(sentence,entity1,entity2):
     doc = nlp_spacy(sentence)
-    #print('sentence:'.format(doc))  # Load spacy's dependency tree into a networkx graph
     edges = []
     for token in doc:
         for child in token.children:
@@ -130,6 +130,5 @@ def extractParsing_Features(sentence,entity1,entity2):
             graph = nx.Graph(edges)  # Get the length and path
     entity1 = entity1.lower()
     entity2 = entity2
-    #print(nx.shortest_path_length(graph, source=entity1, target=entity2))
     return nx.shortest_path(graph, source=entity1, target=entity2)
 

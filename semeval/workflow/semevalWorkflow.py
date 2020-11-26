@@ -1,15 +1,15 @@
-from pip._vendor.distlib.compat import raw_input
-from sklearn.feature_extraction import DictVectorizer
+import re
 
+from pip._vendor.distlib.compat import raw_input
 from semeval.classifier import mlClassifier
 from semeval.metrics import metricsComputation
 from semeval.nlp import nlpPipeline
-from semeval.preprocess import preprocessor, corpusReader
+from semeval.preprocess import corpusReader
 from semeval.common.utils import *
 import _pickle as cPickle
 
 #TODO: Preprocess max dependency path sentence length
-MAX_SENTENCE_LENGTH = 11#preprocessor.getMaxSentenceLengthInTraining()
+#MAX_SENTENCE_LENGTH = preprocessor.getMaxSentenceLengthInTraining()
 
 def orchestrateTrainingFlow(fileName, semanticRelationMap):
     processedParaListTrain = corpusReader.readFile(fileName,semanticRelationMap)
@@ -26,20 +26,16 @@ def orchestrateTrainingFlow(fileName, semanticRelationMap):
         mlClassifier.train_MLClassifier_Direction(allSentenceFeatures, allSentenceDirections)
     printConsole(">>>>>> Training Flow: ML Learning Model for Direction Classification is Complete")
 
-
     # save the classifier
-    with open('ml_model_classifier_relation.pkl', 'wb') as fid_rel:
+    with open(RELATION_CLASSIFIER_TO_DISK, WRITE_MODE) as fid_rel:
         cPickle.dump(trainedMLModelRelation, fid_rel)
-    cPickle.dump(dictVectorRelation, open("vectorizer_relation.pickle", "wb"))
-    with open('ml_model_classifier_direction.pkl', 'wb') as fid_dir:
+    cPickle.dump(dictVectorRelation, open(RELATION_VECTORIZER_TO_DISK, WRITE_MODE))
+    with open(DIRECTION_CLASSIFIER_TO_DISK, WRITE_MODE) as fid_dir:
         cPickle.dump(trainedMLModelDirection, fid_dir)
-    cPickle.dump(dictVectorDirection, open("vectorizer_firection.pickle", "wb"))
+    cPickle.dump(dictVectorDirection, open(DIRECTION_VECTORIZER_TO_DISK, WRITE_MODE))
 
     printConsole(">>>>>> Training model saving is Complete")
-        #return trainedMLModelRelation, dictVectorRelation, trainedMLModelDirection, dictVectorDirection
 
-#def orchestrateTestingFlow(fileName,semanticRelationMap,
-#                          trainedMLModelRelation, dictVectorRelation, trainedMLModelDirection, dictVectorDirection):
 def orchestrateTestingFlow(fileName,semanticRelationMap ):
     processedParaListTest = corpusReader.readFile(fileName,semanticRelationMap)
     printConsole(">>>>>> Testing Flow: Corpus Reader Completed")
@@ -51,18 +47,13 @@ def orchestrateTestingFlow(fileName,semanticRelationMap ):
     allSentencePredictedDirections = []
     printConsole(">>>>>> Testing Flow: Beginning Predictions for each sentence")
 
-    with open('ml_model_classifier_relation.pkl', 'rb') as fid_rel:
+    with open(RELATION_CLASSIFIER_TO_DISK, READ_MODE) as fid_rel:
         trainedMLModelRelation = cPickle.load(fid_rel)
+    dictVectorRelation = cPickle.load(open(RELATION_VECTORIZER_TO_DISK, READ_MODE))
 
-    dictVectorRelation = cPickle.load(open("vectorizer_relation.pickle", "rb"))
-
-    with open('ml_model_classifier_direction.pkl', 'rb') as fid_dir:
+    with open(DIRECTION_CLASSIFIER_TO_DISK, 'rb') as fid_dir:
         trainedMLModelDirection = cPickle.load(fid_dir)
-
-    dictVectorDirection = cPickle.load(open("vectorizer_firection.pickle", "rb"))
-
-    #dictVectorRelation= DictVectorizer(sparse=True)
-    #dictVectorDirection = DictVectorizer(sparse=True)
+    dictVectorDirection = cPickle.load(open(DIRECTION_VECTORIZER_TO_DISK, READ_MODE))
 
     for inputSentenceFeature in allSentenceFeatures:
         predictedRelation = mlClassifier.predict_MLClassifier_Relation\
@@ -77,18 +68,31 @@ def orchestrateTestingFlow(fileName,semanticRelationMap ):
                             allSentencePredictedRelations,allSentencePredictedDirections,semanticRelationMap)
 
 
-def testInputSentence(trainedMLModelRelation, dictVectorRelation,
-                                           trainedMLModelDirection, dictVectorDirection,indexToRelationshipMap):
+def testInputSentence(indexToRelationshipMap):
+    with open(RELATION_CLASSIFIER_TO_DISK, 'rb') as fid_rel:
+        trainedMLModelRelation = cPickle.load(fid_rel)
+    dictVectorRelation = cPickle.load(open(RELATION_VECTORIZER_TO_DISK, READ_MODE))
+
+    with open(DIRECTION_CLASSIFIER_TO_DISK, 'rb') as fid_dir:
+        trainedMLModelDirection = cPickle.load(fid_dir)
+    dictVectorDirection = cPickle.load(open(DIRECTION_VECTORIZER_TO_DISK, READ_MODE))
     loop = True
-    printConsole(">>>>>> Manual User-Test Prediction: Enter the Sentence or " + INPUT_STOP_WORD + " to exit.")
+    printConsole(">>>>>> Manual User-Test Prediction: Enter the Sentence in below format or " + INPUT_STOP_WORD + " to exit.")
+    printConsole("Jack and Jill went to the <e1>hill</e1> to fetch a pail of <e2>water</e2>.")
     while loop:
         inputSentence = raw_input('Input Sentence:')
         if inputSentence == INPUT_STOP_WORD:
             printConsole("Exiting the Program")
             loop = False
         else:
-            entity1 = raw_input('Entity_1:')
-            entity2 = raw_input('Entity_2:')
+            e1 = re.compile('<e1>(.*?)</e1>').search(inputSentence)
+            entity1 = e1.group(1)
+            e2 = re.compile('<e2>(.*?)</e2>').search(inputSentence)
+            entity2 = e2.group(1)
+            printConsole("Entities: " + entity1 + ":" + entity2)
+            inputSentence = inputSentence.replace("<e1>", "") \
+                .replace("</e1>", "").replace("<e2>", "") \
+                .replace("</e2>", "")
             inputSentenceFeature = nlpPipeline.getAllFeaturesForInputSentence(inputSentence,entity1,entity2,MAX_SENTENCE_LENGTH)
             printConsole("NLP Pipeline Output: All-Sentence-Features")
             printConsole(inputSentenceFeature)
