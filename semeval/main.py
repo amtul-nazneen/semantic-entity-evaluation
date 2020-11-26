@@ -17,7 +17,7 @@ def main():
     #semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap,
     #                                      trainedMLModelRelation, dictVectorRelation,
     #                                     trainedMLModelDirection, dictVectorDirection)
-    #semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap)
+    semevalWorkflow.orchestrateTestingFlow(TESTING_FILE_NAME, semanticRelationMap)
     end = time.time()
     printConsole("Total Time Taken: " + str(int(end-begin)) + " seconds")
     printConsole("********** Beginning Manual User-Input Flow **********")

@@ -24,12 +24,12 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
         precision_recall_fscore_support(allSentenceExpectedRelations,
                                         allSentencePredictedRelations, average='macro'))
     # calculating fscore and stats per label
-    rel_labels = semanticRelationMap.keys()
-    printConsole("Labels: ")
-    printConsole(rel_labels)
-    #rel_labels= ['Other', 'Content-Container', 'Entity-Origin', 'Message-Topic', 'Entity-Destination', 'Instrument-Agency']
-    rel_labels = [1,2,3,4,5,6]
-    printConsole(rel_labels)
+    semanticRelationMapValues = semanticRelationMap.values()
+    relationLabels = []
+    for relation in semanticRelationMapValues:
+        relationLabels.append(relation)
+    printConsole("Relation Labels: ")
+    printConsole(relationLabels)
     printConsole(precision_recall_fscore_support(allSentenceExpectedRelations,
                                                  allSentencePredictedRelations, average=None,
-                                                 labels=rel_labels))
+                                                 labels=relationLabels))

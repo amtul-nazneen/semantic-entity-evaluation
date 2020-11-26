@@ -3,4 +3,4 @@ Entity-Destination(e1,e2)
 
 
 8002	"The <e1>company</e1> fabricates plastic <e2>chairs</e2>."
-Member-Collection(e2,e1)
+Entity-Destination(e2,e1)

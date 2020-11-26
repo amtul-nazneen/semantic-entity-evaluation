@@ -1638,7 +1638,7 @@ Cause-Effect(e2,e1)
 Entity-Destination(e1,e2)
 
 
-8411	"The time to the arrival of the first Brownian <e1>particle</e1> from an equilibrated continuum<e2>bath</e2> to an absorbing sphere was shown by Bordewijk in 1975."
+8411	"The time to the arrival of the first Brownian <e1>particle</e1> from an equilibrated continuum <e2>bath</e2> to an absorbing sphere was shown by Bordewijk in 1975."
 Entity-Origin(e1,e2)
 
 
@@ -7462,7 +7462,7 @@ Entity-Destination(e1,e2)
 Member-Collection(e2,e1)
 
 
-9867	"The high <e1>pressure</e1> inside a<e2>caisson</e2> presents health risks."
+9867	"The high <e1>pressure</e1> inside a <e2>caisson</e2> presents health risks."
 Other
 
 
