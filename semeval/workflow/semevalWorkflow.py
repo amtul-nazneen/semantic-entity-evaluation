@@ -8,9 +8,6 @@ from semeval.preprocess import corpusReader
 from semeval.common.utils import *
 import _pickle as cPickle
 
-#TODO: Preprocess max dependency path sentence length
-#MAX_SENTENCE_LENGTH = preprocessor.getMaxSentenceLengthInTraining()
-
 def orchestrateTrainingFlow(fileName, semanticRelationMap):
     processedParaListTrain = corpusReader.readFile(fileName,semanticRelationMap)
     printConsole(">>>>>> Training Flow: Corpus Reader Completed")
@@ -78,7 +75,7 @@ def testInputSentence(indexToRelationshipMap):
     dictVectorDirection = cPickle.load(open(DIRECTION_VECTORIZER_TO_DISK, READ_MODE))
     loop = True
     printConsole(">>>>>> Manual User-Test Prediction: Enter the Sentence in below format or " + INPUT_STOP_WORD + " to exit.")
-    printConsole("Example: Jack and Jill went to the <e1>hill</e1> to fetch a pail of <e2>water</e2>.")
+    printConsole("Example: Jack went to the <e1>hill</e1> to fetch <e2>water</e2>.")
     while loop:
         inputSentence = raw_input('Input Sentence:')
         if inputSentence == INPUT_STOP_WORD:
@@ -94,7 +91,7 @@ def testInputSentence(indexToRelationshipMap):
                 .replace("</e1>", "").replace("<e2>", "") \
                 .replace("</e2>", "")
             inputSentenceFeature = nlpPipeline.getAllFeaturesForInputSentence(inputSentence,entity1,entity2,MAX_SENTENCE_LENGTH)
-            printConsole("NLP Pipeline Output: All-Sentence-Features")
+            printConsole(">> NLP Pipeline Output: All-Sentence-Features")
             printConsole(inputSentenceFeature)
             printConsole("Beginning Prediction")
             begin = time.time()
@@ -108,9 +105,9 @@ def testInputSentence(indexToRelationshipMap):
                 direction = E1_E2
             else:
                 direction = E2_E1
-            printConsole("Predicted Relation: " + relation)
-            printConsole("Predicated Direction: " + "("+ direction+")")
+            printConsole(">> Predicted Relation: " + relation)
+            printConsole(">> Predicated Direction: " + "("+ direction+")")
             end = time.time()
-            printConsole("Total Prediction Time: " + str((end - begin)) + " seconds")
+            printConsole(">> Total Prediction Time: " + str((end - begin)) + " seconds")
 
 

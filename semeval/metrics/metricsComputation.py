@@ -1,25 +1,24 @@
 from semeval.common.utils import printConsole
 from sklearn.metrics import accuracy_score
-import numpy as np
 from sklearn.metrics import precision_recall_fscore_support
 
-# TODO: Complete computations
 def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDirections,
                             allSentencePredictedRelations, allSentencePredictedDirections, semanticRelationMap):
-    printConsole("TRAINING: Beginning computation")
-    printConsole("TRAINING: Expected Relations: ")
+    printConsole("METRIC COMPUTATION: Beginning computation")
+    printConsole("METRIC COMPUTATION: Expected Relations from Training: ")
     printConsole(allSentenceExpectedRelations)
-    printConsole("TRAINING: Predicted Relations: ")
+    printConsole("METRIC COMPUTATION: Predicted Relations from Training: ")
     printConsole(allSentencePredictedRelations)
-    printConsole("TRAINING: Expected Directions: ")
+    printConsole("METRIC COMPUTATION: Expected Directions from Training: ")
     printConsole(allSentenceExpectedDirections)
-    printConsole("TRAINING: Predicted Directions: ")
+    printConsole("METRIC COMPUTATION: Predicted Directions from Training: ")
     printConsole(allSentencePredictedDirections)
     # calculating the metrics part-4
     acc_score = accuracy_score(allSentenceExpectedRelations, allSentencePredictedRelations)
-    printConsole("TRAINING: Accuracy: ")
+    printConsole("######### METRICS under SETTING #1: Relation ######### ")
+    printConsole("METRICS: Accuracy:")
     printConsole(acc_score)
-    printConsole("TRAINING: Precision, Recall and FScore : ")
+    printConsole("METRICS: Overall - Precision, Recall, FScore:")
     printConsole(
         precision_recall_fscore_support(allSentenceExpectedRelations,
                                         allSentencePredictedRelations, average='macro'))
@@ -28,9 +27,9 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
     relationLabels = []
     for relation in semanticRelationMapValues:
         relationLabels.append(relation)
-    printConsole("TRAINING: Relation Labels: ")
+    printConsole("METRICS: Unique Relation Labels: ")
     printConsole(relationLabels)
-    printConsole("TRAINING: Precision, Recall and FScore Per Label: ")
+    printConsole("METRICS: Per Label - Precision, Recall, FScore")
     printConsole(precision_recall_fscore_support(allSentenceExpectedRelations,
                                                  allSentencePredictedRelations, average=None,
                                                  labels=relationLabels))
@@ -61,9 +60,10 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
     print(pred_club)
 
     acc_score = accuracy_score(expected_club, pred_club)
-    printConsole("TESTING Accuracy : both relation and direction")
+    printConsole("######### METRICS under SETTING #2: Relation and Direction ######### ")
+    printConsole("METRICS: Accuracy: ")
     printConsole(acc_score)
-    printConsole("TESTING: Precision, Recall and FScore Per label: ")
+    printConsole("METRICS: Precision, Recall, FScore Per label: ")
     printConsole(
         precision_recall_fscore_support(expected_club,
                                         pred_club, average='macro'))

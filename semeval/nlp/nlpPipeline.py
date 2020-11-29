@@ -10,6 +10,7 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH,state):
     allSentenceRelations = []
     for entry in processedParaList:
         sentence = entry[0]
+        sentence = sentence.replace('%','')
         entity1Original = entry[1]
         entity2Original = entry[2]
         relation = entry[3]
@@ -29,8 +30,8 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH,state):
 
 
         paddedTokenArray = featureExtractor.padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH)
-        printConsole("paddedtoken array")
-        printConsole(paddedTokenArray)
+        #printConsole(state+"Padded Token array")
+        #printConsole(paddedTokenArray)
         lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
         POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
         nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
@@ -45,10 +46,10 @@ def deepNLPPipeline(processedParaList,MAX_SENTENCE_LENGTH,state):
         allSentenceRelations.append(relation)
 
         # extracting part-2 features for printing in a file
-        printConsole("printing features to file")
+        printConsole(state+"Printing Features to file >> input_features.txt")
 
-        printConsole("tokenized array")
-        printConsole(tokenizedArray)
+        #printConsole(state+"Tokenized Array")
+        #printConsole(tokenizedArray)
 
         lemmaArray_file = featureExtractor.extractLemma_Features(tokenizedArray, nlp)
         POSArray_file = featureExtractor.extractPOS_Features(tokenizedArray, nlp)
@@ -87,41 +88,42 @@ def getAllFeaturesForInputSentence(sentence,entity1Original, entity2Original,MAX
     entity1, entity2 = concatenateAndChangeCase(entity1Original, entity2Original)
     sentence = sentence.replace(entity1Original, entity1)
     sentence = sentence.replace(entity2Original, entity2)
+    sentence = sentence.replace('%', '')
     printConsole("Modified Sentence: " + sentence)
     printConsole("Modified entities: " + entity1 + ":" + entity2)
-
+    printConsole(" ################### SEMANTIC FEATURES #######################")
     tokenizedArray = featureExtractor.extractTokens(sentence, nlp)  # Invoking, but not used
-    printConsole("Extracted Tokens:")
+    printConsole(">> Extracted Tokens:")
     printConsole(tokenizedArray)
 
     parsingArray = featureExtractor.extractParsing_Features(sentence, entity1, entity2)
-    printConsole("Extracted Dependency Parsing Tokens as Features: ")
+    printConsole(">> Extracted Dependency Parsing Tokens as Features: ")
     printConsole(parsingArray)
     tokenArray = parsingArray
 
     paddedTokenArray = featureExtractor.padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH)
-    printConsole("Padded Tokens for Consistent Length:")
+    printConsole(">> Padded Tokens for Consistent Length:")
     printConsole(paddedTokenArray)
 
     lemmaArray = featureExtractor.extractLemma_Features(paddedTokenArray, nlp)
-    printConsole("Extracted Lemma as Features:")
+    printConsole(">> Extracted Lemma as Features:")
     printConsole(lemmaArray)
 
     POSArray = featureExtractor.extractPOS_Features(paddedTokenArray, nlp)
-    printConsole("Extracted POS as Features:")
+    printConsole(">> Extracted POS as Features:")
     printConsole(POSArray)
 
     nerArray = featureExtractor.extractNER_Features(paddedTokenArray, entity1, entity2, nlp)
-    printConsole("Extracted NER as Features:")
+    printConsole(">> Extracted NER as Features:")
     printConsole(nerArray)
 
     wordnetInputOnlyEntity = []
     wordnetInputOnlyEntity.append(entity1)
     wordnetInputOnlyEntity.append(entity2)
     wordNetArray = featureExtractor.extractWordNet_Features(wordnetInputOnlyEntity)
-    printConsole("Extracted WordNet as Features:")
+    printConsole(">> Extracted WordNet as Features:")
     printConsole(wordNetArray)
-
+    printConsole(" ################### SEMANTIC FEATURES #######################")
     return mergingAllFeatures(lemmaArray,POSArray,nerArray,wordNetArray)
 
 

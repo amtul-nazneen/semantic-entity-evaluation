@@ -12,9 +12,6 @@ logging.basicConfig(level=logging.INFO, filename="consolelogFile", filemode="a+"
 TRAINING_FILE_NAME = '../data/semeval_train.txt'
 TESTING_FILE_NAME = '../data/semeval_test.txt'
 
-#TRAINING_FILE_NAME = 'semeval_train_small_metrics.txt'
-#TESTING_FILE_NAME = 'semeval_test_small_metrics.txt'
-
 TEST_STATE = "TESTING: "
 TRAIN_STATE = "TRAINING: "
 

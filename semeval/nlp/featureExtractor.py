@@ -129,7 +129,7 @@ def extractWordNet_Features(tokenArray):
     meronyms.sort()
     holonyms.sort()
     allWordNetFeaturesDict =\
-        wordnetHelper.extractWordNet_Features_Helper(len(tokenArray), hypernyms, hyponyms, holonyms, meronyms)
+        wordnetHelper.extractWordNet_Features_Helper( hypernyms, hyponyms, holonyms, meronyms)
     return allWordNetFeaturesDict
 
 def padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH):

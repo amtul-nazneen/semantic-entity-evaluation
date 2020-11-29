@@ -22,7 +22,7 @@ def getMaxSentenceLengthInTraining():
                 currentSentenceLength = len(sentence.split())
                 if (currentSentenceLength > maxLength):
                     maxLength = currentSentenceLength
-        printConsole("Max Length of Sentence Is:" + str(maxLength))
+        printConsole("PRE-PROCESS: " + "Max Length of Sentence Is:" + str(maxLength))
         return maxLength
 
 
@@ -46,7 +46,7 @@ def getPreProcessedRelationMap():
             relationshipToIndexMap[relation] = relationMapValueCounter
             indexToRelationshipMap[relationMapValueCounter] = relation
             relationMapValueCounter = relationMapValueCounter + 1
-        printConsole("Semantic Relations Mapping: ")
+        printConsole("PRE-PROCESS: " + "Semantic Relations Mapping: ")
         printConsole(relationshipToIndexMap)
         printConsole(indexToRelationshipMap)
         return relationshipToIndexMap, indexToRelationshipMap
