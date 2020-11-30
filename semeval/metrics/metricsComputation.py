@@ -16,12 +16,16 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
     # calculating the metrics part-4
     acc_score = accuracy_score(allSentenceExpectedRelations, allSentencePredictedRelations)
     printConsole("######### METRICS under SETTING #1: Relation ######### ")
-    printConsole("METRICS: Accuracy:")
+    printConsole("METRICS: Overall - Accuracy:")
     printConsole(acc_score)
-    printConsole("METRICS: Overall - Precision, Recall, FScore:")
+    printConsole("METRICS: Overall - Precision, Recall, FScore (Macro)")
     printConsole(
         precision_recall_fscore_support(allSentenceExpectedRelations,
                                         allSentencePredictedRelations, average='macro'))
+    printConsole("METRICS: Overall - Precision, Recall, FScore (None)")
+    printConsole(
+        precision_recall_fscore_support(allSentenceExpectedRelations,
+                                        allSentencePredictedRelations, average=None))
     # calculating fscore and stats per label
     semanticRelationMapValues = semanticRelationMap.values()
     relationLabels = []
@@ -29,7 +33,11 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
         relationLabels.append(relation)
     printConsole("METRICS: Unique Relation Labels: ")
     printConsole(relationLabels)
-    printConsole("METRICS: Per Label - Precision, Recall, FScore")
+    printConsole("METRICS: Per Label - Precision, Recall, FScore (Macro)")
+    printConsole(precision_recall_fscore_support(allSentenceExpectedRelations,
+                                                 allSentencePredictedRelations, average='macro',
+                                                 labels=relationLabels))
+    printConsole("METRICS: Per Label - Precision, Recall, FScore (None)")
     printConsole(precision_recall_fscore_support(allSentenceExpectedRelations,
                                                  allSentencePredictedRelations, average=None,
                                                  labels=relationLabels))
@@ -45,7 +53,7 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
         for j in exp_directions:
             expected_club.append(i + j)
         exp_relations.remove(i)
-    print(expected_club)
+
 
     # clubbing both arrays relation, direction (predicted)
 
@@ -57,13 +65,29 @@ def computePredictionScores(allSentenceExpectedRelations, allSentenceExpectedDir
         for j in pred_directions:
             pred_club.append(i + j)
         pred_relations.remove(i)
-    print(pred_club)
+
 
     acc_score = accuracy_score(expected_club, pred_club)
     printConsole("######### METRICS under SETTING #2: Relation and Direction ######### ")
     printConsole("METRICS: Accuracy: ")
     printConsole(acc_score)
-    printConsole("METRICS: Precision, Recall, FScore Per label: ")
+    printConsole("METRICS: Overall - Precision, Recall, FScore (Macro)")
     printConsole(
         precision_recall_fscore_support(expected_club,
                                         pred_club, average='macro'))
+    printConsole("METRICS: Overall - Precision, Recall, FScore (None)")
+    printConsole(
+        precision_recall_fscore_support(expected_club,
+                                        pred_club, average=None))
+
+    directionLabels = [0,1,2]
+    printConsole("METRICS: Unique Direction Labels: ")
+    printConsole(directionLabels)
+    printConsole("METRICS: Per Label - Precision, Recall, FScore (None)")
+    printConsole(precision_recall_fscore_support(expected_club,
+                                                 pred_club, average=None,
+                                                 labels=directionLabels))
+    printConsole("METRICS: Per Label - Precision, Recall, FScore (Macro)")
+    printConsole(precision_recall_fscore_support(expected_club,
+                                                 pred_club, average='macro',
+                                                 labels=directionLabels))

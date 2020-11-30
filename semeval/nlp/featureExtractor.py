@@ -143,7 +143,6 @@ def padTokenArrayAndChangeCase(tokenArray, MAX_SENTENCE_LENGTH):
     return tokenArray
 
 
-#TODO- Testing on whole test set
 def extractParsing_Features(sentence,entity1,entity2):
     doc = nlp_spacy(sentence)
     edges = []

@@ -17,7 +17,7 @@ def main():
     test(semanticRelationMap)
 
     end = time.time()
-    printConsole("Total Time Taken (Training + Testing): " + str(int(end-begin)) + " seconds" + "/" + str(int(end-begin)/60) + " minutes")
+    printConsole("Total Time Taken (Training + Testing): " + str(int(end-begin)) + " seconds" + "/" + str(int(int(end-begin)/60)) + " minutes")
 
     userInput(indexToRelationshipMap)
 

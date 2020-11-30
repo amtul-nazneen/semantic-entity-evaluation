@@ -4,10 +4,8 @@ import logging
 logging.basicConfig(level=logging.INFO, filename="consolelogFile", filemode="a+",
                         format="%(asctime)-15s %(levelname)-8s %(message)s")
 
-
-
-#TRAINING_FILE_NAME = '../data/smallSet/semeval_train_small.txt'
-#TESTING_FILE_NAME = '../data/smallSet/semeval_test_small.txt'
+# TRAINING_FILE_NAME = '../data/smallSet/semeval_train_small.txt'
+# TESTING_FILE_NAME = '../data/smallSet/semeval_test_small.txt'
 
 TRAINING_FILE_NAME = '../data/semeval_train.txt'
 TESTING_FILE_NAME = '../data/semeval_test.txt'
