@@ -1,4 +1,4 @@
-# Semantic Entity Relation Extraction
+# Semantic Entity Relation Evaluation
 We are given a TAC KBP dataset using which we try to build a model to  predict relations and direction of relations between pre-tagged entities. After the training phase , a similar test set is provided to the built model, and we predict the relations and directions between its entities.  Accuracy , recall , macro precision and F-scores under settings relation-only and relation-direction are calculated and reported below. And also, given a test sentence, we load the same model and make relation, direction  prediction between the entities. The model we trained for the purpose is probabilistic.
 ### Getting Started
 These instructions will get you a copy of the application up and running on your local machine for development and testing purposes.
