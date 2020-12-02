@@ -1,5 +1,7 @@
 # Semantic Entity Relation Evaluation
-We are given a TAC KBP dataset using which we try to build a model to  predict relations and direction of relations between pre-tagged entities. After the training phase , a similar test set is provided to the built model, and we predict the relations and directions between its entities.  Accuracy , recall , macro precision and F-scores under settings relation-only and relation-direction are calculated and reported below. And also, given a test sentence, we load the same model and make relation, direction  prediction between the entities. The model we trained for the purpose is probabilistic.
+We are given a TAC KBP dataset using which we try to build a model to  predict relations and direction of relations between pre-tagged entities. After the training phase , a similar test set is provided to the built model, and we predict the relations and directions between its entities.  
+
+Accuracy , recall , macro precision and F-scores under settings relation-only and relation-direction are calculated and reported below. And also, given a test sentence, we load the same model and make relation, direction  prediction between the entities. The model we trained for the purpose is probabilistic.
 
 ### Getting Started
 These instructions will get you a copy of the application up and running on your local machine for development and testing purposes.
@@ -23,9 +25,9 @@ All the other libraries are imported using ``pip install``
 ``java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -annotators "tokenize,ssplit,pos,lemma,parse,sentiment" -port 9000 -timeout 30000``
 
 ### Running the program
-Download all the source code into a folder.
-run the file ``main.py``
-After model trains we can see the output containing metrics like accuracy ,precision, recall and fscore.
+- Download all the source code into a folder.
+- Run the file ``main.py``
+- After model trains we can see the output containing metrics like accuracy ,precision, recall and fscore.
 
 ### Testing a given sentence
 Test sentence can be tested at the end of training after all pickle files are generated.
