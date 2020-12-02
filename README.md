@@ -28,7 +28,7 @@ After model trains we can see the output containing metrics like accuracy ,preci
 ### Testing a given sentence
 Test sentence can be tested at the end of training after all pickle files are generated.
 
-Input Sentence:``The <e1>fortress</e1> has four <e2>towers</e2> corresponding to the cardinal points.``
+Example Input Sentence:``The <e1>fortress</e1> has four <e2>towers</e2> corresponding to the cardinal points.``
 2020-11-29 21:05:00 :  Entities: fortress:towers
 2020-11-29 21:05:00 :  Modified Sentence: The fortress has four towers corresponding to the cardinal points.
 2020-11-29 21:05:00 :  Modified entities: fortress:towers
@@ -43,6 +43,7 @@ Input Sentence:``The <e1>fortress</e1> has four <e2>towers</e2> corresponding to
 2020-11-29 21:05:00 :  {​​​​'lemma1': 'fortress', 'lemma2': 'have', 'lemma3': 'tower', 'lemma4': '$', 'lemma5': '$', 'lemma6': '$', 'lemma7': '$', 'lemma8': '$', 'lemma9': '$', 'lemma10': '$', 'lemma11': '$'}​​​​
 2020-11-29 21:05:00 :  >> Extracted POS as Features:
 2020-11-29 21:05:00 :  {​​​​'pos1': 'NN', 'pos2': 'VBZ', 'pos3': 'NNS', 'pos4': '$', 'pos5': '$', 'pos6': '$', 'pos7': '$', 'pos8': '$', 'pos9': '$', 'pos10': '$', 'pos11': '$'}​​​​
+
 2020-11-29 21:05:00 :  >> Extracted NER as Features:
 2020-11-29 21:05:00 :  {​​​​'entity1': 'OTHER', 'entity2': 'OTHER'}​​​​
 2020-11-29 21:05:00 :  >> Extracted WordNet as Features:
