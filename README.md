@@ -83,12 +83,12 @@ Loading Saved Model from Disk..
 >> Total Prediction Time: 0.0009970664978027344 seconds
  
 #### Files generated after the run
-``consolelogFile`` - has the log of the program with metrics reported at the end
-``input_features.txt`` - lists the input training file features like lemmas, tokens, pos tags, shortest depedency parsing , NER and wordnet features
-``ml_model_classifier_direction.pkl`` - model created to predict direction of relation between entities
-``ml_model_classifier_relation.pkl``- model created to predict relation of relation between entities
-``vectorizer_direction.pickle``- dict vectorizer created to predict direction of relation between entities
-``vectorizer_relation.pickle``- dict vectorizer created to predict relation of relation between entities
+- ``consolelogFile`` - has the log of the program with metrics reported at the end
+- ``input_features.txt`` - lists the input training file features like lemmas, tokens, pos tags, shortest depedency parsing , NER and wordnet features
+- ``ml_model_classifier_direction.pkl`` - model created to predict direction of relation between entities
+- ``ml_model_classifier_relation.pkl``- model created to predict relation of relation between entities
+- ``vectorizer_direction.pickle``- dict vectorizer created to predict direction of relation between entities
+- ``vectorizer_relation.pickle``- dict vectorizer created to predict relation of relation between entities
  
 ### Authors
     Amtul Nazneen - axn180041
